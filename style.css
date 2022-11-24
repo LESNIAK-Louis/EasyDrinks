@@ -1,4 +1,12 @@
+div.header{
+    height: 20%;
+    text-align: center;
+}
+
 div.boiteRecette{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
     width: 200px;
     height : 200px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
@@ -11,6 +19,60 @@ div.boiteTitreRecette{
 
 img.imageRecette{
     width: inherit;
-    height: 150px;
-    
+    height: 150px;   
+}
+
+div.listeCategories{
+    position: absolute;
+    top: 25%;
+    left: 10px;
+    width: 20%;
+    /*border: 1px solid black;*/
+}
+
+div.categorie{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 10px;  
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+}
+
+div.listeIngredients{
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    width: 20%;
+    border: 1px solid black;
+    text-align: center;
+}
+
+ul.navigation {
+    padding: 10px 16px;
+    background-color: #eee;
+}
+  
+ul.navigation li {
+    display: inline;
+    font-size: 16px;
+}
+
+ul.navigation li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+
+ul.navigation li a {
+
+}
+
+ul.navigation li a:hover {
+
+}
+
+form.recherche{
+    position: absolute;
+    right: 10px;
 }
