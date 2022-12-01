@@ -1,9 +1,9 @@
 div.grid-container{
     display: grid;
     grid-template-areas:
-        'header header header header header header header header header header'
-        'menu main main main main main main main main right'
-        'footer footer footer footer footer footer footer footer footer footer';
+        'header header header header header header header header header header header header header header'
+        'menu main main main main main main main main main main main main right'
+        'footer footer footer footer footer footer footer footer footer footer footer footer footer footer';
     gap: 10px;
     padding: 10px;
 }
@@ -24,10 +24,6 @@ div.grid-container{
 }
 
 div.listeCategories{
-    position: absolute;
-    top: 25%;
-    width: 20%;
-    /*border: 1px solid black;*/
 }
 
 div.categorie{
@@ -57,12 +53,12 @@ ul.navigation li+li:before {
 }
 
 
-form.recherche{
-    position: absolute;
-    right: 10px;
-}
-
             /* MAIN */
+
+form.rechercheTexte{
+    padding-top: 25px;
+    
+}
 
 .main{
     grid-area: main;
@@ -70,9 +66,10 @@ form.recherche{
 }
 
 div.containerRecettes{
+    padding: 8px;
     display: grid;
-    grid-template-columns: auto auto auto;
-    grid-gap: 20px;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 25px 25px;
 }
 
 div.boiteRecette{
@@ -88,7 +85,7 @@ div.boiteTitreRecette{
 
 img.imageRecette{
     width: inherit;
-    height: 200px;   
+    height: 200px; 
 }
 
             /* RIGHT */
@@ -109,4 +106,5 @@ div.listeIngredients{
 
 .footer{
     grid-area: footer;
+    background-color: rgb(255, 5, 5);
 }

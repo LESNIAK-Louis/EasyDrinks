@@ -14,12 +14,6 @@
 
 
         <div class="menu">
-            <ul class="navigation">
-                <li><a href="#">Catégorie 1</a></li>
-                <li><a href="#">Catégorie 2</a></li>
-                <li>Catégorie 3</li>
-            </ul>
-
             <form class="rechercheTexte">
                 <input type="text" id="champRecherche">
                 <button id="boutonRechercheTexte"> Rechercher </button>
@@ -42,6 +36,11 @@
 
 
         <div class="main">
+        <ul class="navigation">
+                <li><a href="#">Catégorie 1</a></li>
+                <li><a href="#">Catégorie 2</a></li>
+                <li>Catégorie 3</li>
+            </ul>
             <div class="containerRecettes">
                 <?php
                     require 'Donnees.inc.php';
@@ -65,7 +64,7 @@
                             </div>';
                     }
                 ?>
-            <div class="containerRecettes">
+            </div>
         </div>
 
         <div class="right">
