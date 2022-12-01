@@ -10,6 +10,7 @@
 
         <div class="header"> 
             <h1> Easy Drinks </h1>
+        
         </div>
 
 
@@ -36,7 +37,7 @@
 
 
         <div class="main">
-        <ul class="navigation">
+            <ul class="navigation">
                 <li><a href="#">Catégorie 1</a></li>
                 <li><a href="#">Catégorie 2</a></li>
                 <li>Catégorie 3</li>
