@@ -8,21 +8,61 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
     <script type="text/javascript">
+
+        let histo = new Array(' ');
+
+        function mettreAJourAffichage(categorie){
+            $('.listeCategories').empty();
+            $('.navigation').empty();
+            jQuery.each(categorie, function(index, value){
+                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a></div>");
+                
+            });
+            histo.forEach(function(item, index, histo){
+                $('.navigation').append("<li><a class='histo' href='#'>" + item + "</a></li>")
+            });
+        }
+
+        function mettreAJourCategories(categorieActuelle){
+            $.post("nav.php", 
+            {
+                current: categorieActuelle
+            }, function(data, status){
+                
+                let res = JSON.parse(data);
+                if(!res.error){
+                    
+                    histo.push(categorieActuelle);
+                    mettreAJourAffichage(res);
+                }
+            });
+        }
+
+        function mettreAJourHistorique(categorieActuelle){
+            let removeIndex = histo.indexOf(categorieActuelle) + 1;
+            histo.splice(removeIndex, histo.length - removeIndex);
+            $.post("nav.php", 
+            {
+                current: categorieActuelle
+            }, function(data, status){
+                mettreAJourAffichage(JSON.parse(data));
+            });
+        }
+
         $(document).ready(function(){
             $(document).on('click', '.boutonMenu', function(){
-                $.post("nav.php", 
-                {
-                    current: $(this).text()
-                }, function(data, status){
-                    
-                    res = JSON.parse(data);
-                    $('.listeCategories').empty();
-                    jQuery.each(res, function(index, value){
-                        $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a></div>");
-                    });
-                })
+                mettreAJourCategories($(this).text());
             });
+
+            $(document).on('click', '.histo', function(){
+                mettreAJourHistorique($(this).text());
+            });
+
+            mettreAJourCategories('Aliment');
+            mettreAJourHistorique('Aliment');
         });
+
+        
     </script>
 </head>
 <body>
@@ -50,9 +90,7 @@
 
         <div class="main">
             <ul class="navigation">
-                <li><a href="#">Catégorie 1</a></li>
-                <li><a href="#">Catégorie 2</a></li>
-                <li>Catégorie 3</li>
+
             </ul>
             <div class="containerRecettes">
                 <?php
