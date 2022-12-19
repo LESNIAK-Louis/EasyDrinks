@@ -72,7 +72,7 @@
 
             mettreAJourCategories('Aliment');
             mettreAJourHistorique('Aliment');
-            mettreAJourRecettes($(this).text());
+            mettreAJourRecettes('Aliment');
         });
 
         
