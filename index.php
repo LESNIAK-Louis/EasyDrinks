@@ -3,7 +3,27 @@
 <head>
     <title>EasyDrinks</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('click', '.boutonMenu', function(){
+                $.post("nav.php", 
+                {
+                    current: $(this).text()
+                }, function(data, status){
+                    
+                    res = JSON.parse(data);
+                    $('.listeCategories').empty();
+                    jQuery.each(res, function(index, value){
+                        $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a></div>");
+                    });
+                })
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="grid-container">
@@ -22,15 +42,7 @@
 
             <div class="listeCategories">
                 <div class="categorie">
-                    <a href="#">Catégorie 1</a>
-                </div>
-                
-                <div class="categorie">
-                    <a href="#">Catégorie 2</a>
-                </div>
-
-                <div class="categorie">
-                    <a href="#">Catégorie 3</a>
+                    <a class="boutonMenu" href="#">Aliment</a>
                 </div>
             </div>
         </div>
