@@ -27,7 +27,6 @@
                 {
                     current: $(this).text()
                 }, function(data, status){
-                    alert(data);
                     $('.containerRecettes').empty();
                     $('.containerRecettes').append(data);
                 })

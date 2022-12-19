@@ -24,7 +24,7 @@
         $recettes = array();
         foreach($Recettes as $recette){
             foreach($recette['index'] as $ingre){
-                if(array_search($ingre,$ingredients) && !in_array($recette, $recettes))
+                if(in_array($ingre,$ingredients) && !in_array($recette, $recettes))
                     $recettes[] = $recette;
             }
         }
@@ -61,7 +61,6 @@
 
     $leafs = getFeuilles($_POST['current']);
     $toDispay = getRecettes($leafs);
-    print_r($toDispay);
     $resultat = displayRecettes($toDispay);
-    //echo $resultat;
+    echo $resultat;
 ?>
