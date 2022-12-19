@@ -59,15 +59,63 @@
             });
         }
 
+        function afficherRecette(recetteActuelle){
+            $.post("detailRecette.php", 
+            {
+                current: recetteActuelle
+            }, function(data, status){
+                const res = JSON.parse(data);
+                if(!res.error){
+                    $('.containerRecettes').hide();
+                    $('.contenuRecette').show();
+                    $('.contenuRecette').empty();
+
+                    $('.contenuRecette').append( '<h1>' + res.titre + '</h1>' + '<br>'); // Titre
+
+                    $('.contenuRecette').append(res.image); // Image
+
+                    // Ingrédients
+                    $('.contenuRecette').append('<h2>' + 'Liste des ingrédients' + '</h2>' + '<br>' +
+                    '<ul class =\'ulIngredients\' ></ul>'
+                    );
+                    var ingredients = res.ingredients.split('|');
+                    for (let i = 0; i < ingredients.length; ++i) {
+                        $('.ulIngredients').append('<li>' + ingredients[i] + '</li>');
+                    }
+
+                    // Préparation
+                    $('.contenuRecette').append(
+                        '<h2>' + 'Préparation' + '</h2>' + '<br>' +
+                        '<ol class=\'olPreparation\'></ol>'
+                    );
+                    var preparation = res.preparation.split(/[.!]/);
+                    for (let i = 0; i < preparation.length; ++i) {
+                        if(preparation[i] != '')
+                            $('.olPreparation').append('<li>' + preparation[i] + '</li>');
+                    }
+                   
+                } 
+            });
+        }
+
+
         $(document).ready(function(){
             $(document).on('click', '.boutonMenu', function(){
+                $('.containerRecettes').show();
+                $('.contenuRecette').hide();
                 mettreAJourCategories($(this).text());
                 mettreAJourRecettes($(this).text());
             });
 
             $(document).on('click', '.histo', function(){
+                $('.containerRecettes').show();
+                $('.contenuRecette').hide();
                 mettreAJourHistorique($(this).text());
                 mettreAJourRecettes($(this).text());
+            });
+
+            $(document).on('click', '.boiteRecette', function(){
+                afficherRecette($(".titreRecette", this).text());
             });
 
             mettreAJourCategories('Aliment');
@@ -105,9 +153,8 @@
             <ul class="navigation">
 
             </ul>
-            <div class="containerRecettes">
-                
-            </div>
+            <div class="containerRecettes"></div>
+            <div class="contenuRecette"></div>
         </div>
 
         <div class="right">

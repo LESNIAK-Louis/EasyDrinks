@@ -79,14 +79,21 @@ div.containerRecettes{
 }
 
 div.boiteRecette{
+    cursor:pointer;
     width: 250px;
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
     text-align: center; 
+    cursor: pointer;
 }
 
 img.imageRecette{
     width: inherit;
     height: 200px; 
+}
+
+div.contenuRecette{
+    font-size: medium;
+    text-align: center;
 }
 
             /* RIGHT */
