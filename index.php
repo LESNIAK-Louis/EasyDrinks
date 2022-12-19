@@ -54,7 +54,6 @@
             {
                 current: categorieActuelle
             }, function(data, status){
-                alert(data);
                 $('.containerRecettes').empty();
                 $('.containerRecettes').append(data);
             });
