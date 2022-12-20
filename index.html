@@ -103,8 +103,20 @@
             $(".autocomplete-items").remove();
         }
 
+        function effectuerRecherche(mot){
+            $.post("recherche.php", 
+                {
+                    recherche: mot
+                }, function(data, status){
+                    $('.containerRecettes').empty();
+                    $('.containerRecettes').append(data);
+                    mettreAJourHistorique('Aliment');
+                });
+        }
+
 
         $(document).ready(function(){
+
             $(document).on('click', '.boutonMenu', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
@@ -132,13 +144,18 @@
                     $(".autocomplete-items").remove();
                     $('.autocomplete').append(data);
                 });
-                afficherRecette($(".titreRecette", this).text());
             });
 
             $(document).on('click', '.autocomplete-items', function(){
                 selectSuggestion($(this).text());
             });
-
+            
+            $(document).on('click', '#boutonRechercheTexte', function(){
+                $('.containerRecettes').show();
+                $('.contenuRecette').hide();
+                effectuerRecherche($("#champRecherche").val());
+            });
+            
             mettreAJourCategories('Aliment');
             mettreAJourHistorique('Aliment');
             mettreAJourRecettes('Aliment');
