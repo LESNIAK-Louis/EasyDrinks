@@ -119,7 +119,7 @@ function rechercherContenuRecette($mot){
             $res[] = $r;
         }
         foreach($leafs as $f){
-            $motifFeuille = '/^'.$f.'.*/i';
+            $motifFeuille = '/.*'.$f.'.*/i';
             foreach($r['index'] as $ingredient){
                 if(preg_match($motifFeuille, $ingredient, $match)){
                     $res[] = $r;
