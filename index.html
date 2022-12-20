@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>EasyDrinks</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 
@@ -98,6 +98,11 @@
             });
         }
 
+        function selectSuggestion(val) {
+            $("#champRecherche").val(val);
+            $(".autocomplete-items").remove();
+        }
+
 
         $(document).ready(function(){
             $(document).on('click', '.boutonMenu', function(){
@@ -118,6 +123,22 @@
                 afficherRecette($(".titreRecette", this).text());
             });
 
+            $('#champRecherche').keyup( function(){
+                let mot = $(this).val();
+                $.post("suggestions.php",
+                {
+                    recherche: mot
+                }, function(data, status){
+                    $(".autocomplete-items").remove();
+                    $('.autocomplete').append(data);
+                });
+                afficherRecette($(".titreRecette", this).text());
+            });
+
+            $(document).on('click', '.autocomplete-items', function(){
+                selectSuggestion($(this).text());
+            });
+
             mettreAJourCategories('Aliment');
             mettreAJourHistorique('Aliment');
             mettreAJourRecettes('Aliment');
@@ -136,8 +157,10 @@
 
 
         <div class="menu">
-            <form class="rechercheTexte">
-                <input type="text" id="champRecherche">
+            <form class="rechercheTexte" autocomplete="off">
+                <div class="autocomplete">
+                    <input type="text" id="champRecherche">
+                </div>
                 <button id="boutonRechercheTexte"> Rechercher </button>
             </form>
 
