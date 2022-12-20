@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>EasyDrinks</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 
@@ -10,12 +10,15 @@
     <script type="text/javascript">
 
         let histo = new Array(' ');
+        let ingredients = new Array();
 
         function mettreAJourAffichage(categorie){
             $('.listeCategories').empty();
             $('.navigation').empty();
             jQuery.each(categorie, function(index, value){
-                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a></div>");
+                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value +
+                                                "</a>" + "<button class='ajouterIngredient'>+</button>"+
+                                                "<button class='ajouterPasIngredient'>x</button>" + "</div>");
                 
             });
             histo.forEach(function(item, index, histo){
@@ -32,7 +35,9 @@
                 let res = JSON.parse(data);
                 if(!res.error){
                     
-                    histo.push(categorieActuelle);
+                    if(!histo.includes(categorieActuelle)){
+                        histo.push(categorieActuelle);
+                    }
                     mettreAJourAffichage(res);
                 }
             });
@@ -47,6 +52,19 @@
             }, function(data, status){
                 mettreAJourAffichage(JSON.parse(data));
             });
+        }
+
+        function mettreAJourIngredients(nouvelIngredient){
+            $('.listeIngredients').empty()
+            ingredients.forEach(function(item, index, ingredients){
+                $('.listeIngredients').append("<div class='ingredientItem'><button class='retirerIngredient'>X</button><p>" + item + "</p></div>");
+            });
+            if(ingredients.length == 0){
+                $('.listeIngredients').append("<p>Aucun ingrédient sélectionné</p>");
+                $('#boutonRechercheRecette').hide();
+            }else{
+                $('#boutonRechercheRecette').show();
+            }
         }
 
         function mettreAJourRecettes(categorieActuelle){
@@ -98,8 +116,25 @@
             });
         }
 
+        function selectSuggestion(val) {
+            $("#champRecherche").val(val);
+            $(".autocomplete-items").remove();
+        }
+
+        function effectuerRecherche(mot){
+            $.post("recherche.php", 
+                {
+                    recherche: mot
+                }, function(data, status){
+                    $('.containerRecettes').empty();
+                    $('.containerRecettes').append(data);
+                    mettreAJourHistorique('Aliment');
+                });
+        }
+
 
         $(document).ready(function(){
+
             $(document).on('click', '.boutonMenu', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
@@ -118,9 +153,56 @@
                 afficherRecette($(".titreRecette", this).text());
             });
 
+            $('#champRecherche').keyup( function(){
+                let mot = $(this).val();
+                $.post("suggestions.php",
+                {
+                    recherche: mot
+                }, function(data, status){
+                    $(".autocomplete-items").remove();
+                    $('.autocomplete').append(data);
+                });
+            });
+
+            $(document).on('click', '.autocomplete-items', function(){
+                selectSuggestion($(this).text());
+            });
+            
+            $(document).on('click', '#boutonRechercheTexte', function(){
+                $('.containerRecettes').show();
+                $('.contenuRecette').hide();
+                effectuerRecherche($("#champRecherche").val());
+            });
+
+            $(document).on('click', '.ajouterIngredient', function(){
+                let ing = $(this).siblings('a').text();
+                if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
+                    ingredients.push(ing);
+                    mettreAJourIngredients();
+                }
+            });
+
+            $(document).on('click', '.ajouterPasIngredient', function(){
+                let ing = $(this).siblings('a').text();
+                if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
+                    ingredients.push("Pas de " + ing);
+                    mettreAJourIngredients();
+                }
+            });
+
+            $(document).on('click', '.retirerIngredient', function(){
+                let ing = $(this).siblings('p').text();
+                if(ingredients.includes(ing)){
+                    let index = ingredients.indexOf(ing);
+                    ingredients.splice(index, 1);
+                    mettreAJourIngredients();
+                }
+            });
+            
             mettreAJourCategories('Aliment');
             mettreAJourHistorique('Aliment');
             mettreAJourRecettes('Aliment');
+            mettreAJourIngredients();
         });
 
         
@@ -136,8 +218,10 @@
 
 
         <div class="menu">
-            <form class="rechercheTexte">
-                <input type="text" id="champRecherche">
+            <form class="rechercheTexte" autocomplete="off">
+                <div class="autocomplete">
+                    <input type="text" id="champRecherche">
+                </div>
                 <button id="boutonRechercheTexte"> Rechercher </button>
             </form>
 
@@ -159,13 +243,11 @@
 
         <div class="right">
             <div class="listeIngredients">
-                <p>Ingrédient 1</p>
-                <p>Ingrédient 2</p>
-                <p>Ingrédient 3</p>
-                <form class="rechercheRecettes">
-                    <button id="boutonRechercheRecette"> Rechercher des recettes </button>
-                </form>
+                <p>Aucun ingrédient sélectionné</p>
             </div>
+            <form class="rechercheRecettes">
+                <button id="boutonRechercheRecette"> Rechercher des recettes </button>
+            </form>
         </div>
 
         <div class="footer">

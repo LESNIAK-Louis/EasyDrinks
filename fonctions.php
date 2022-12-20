@@ -1,22 +1,46 @@
 <?php
 
-function getFeuilles($categorie) {
+function getSousCategories($categorie){
+
     require 'Donnees.inc.php';
-    $leafs = array();
+
+    $sousCateg = array();
 
     $currentCateg = $Hierarchie[$categorie];
     if (array_key_exists('sous-categorie', $currentCateg)) {
         foreach ($currentCateg['sous-categorie'] as $c) {
-            $leafs = array_merge($leafs, getFeuilles($c));
-            $leafs = array_unique($leafs, SORT_REGULAR);
+            $sousCateg[] = $c;
+            $sousCateg = array_merge($sousCateg, getSousCategories($c));
+            $sousCateg = array_unique($sousCateg, SORT_REGULAR);
         }
     }
     else{
-        if(!in_array($categorie, $leafs)){
-            $leafs[] = $categorie;
+        if(!in_array($categorie, $sousCateg)){
+            $sousCateg[] = $categorie;
         }
     }
 
+    return $sousCateg;
+}
+
+function getFeuilles($categorie) {
+    require 'Donnees.inc.php';
+    $leafs = array();
+
+    if(array_key_exists($categorie, $Hierarchie)){
+        $currentCateg = $Hierarchie[$categorie];
+        if (array_key_exists('sous-categorie', $currentCateg)) {
+            foreach ($currentCateg['sous-categorie'] as $c) {
+                $leafs = array_merge($leafs, getFeuilles($c));
+                $leafs = array_unique($leafs, SORT_REGULAR);
+            }
+        }
+        else{
+            if(!in_array($categorie, $leafs)){
+                $leafs[] = $categorie;
+            }
+        }
+    }
     return $leafs;
 }              
 
@@ -60,6 +84,53 @@ function getImage($recette){
     $nomBoisson = ucwords(strtolower($sansAccents));
     $img = '<img src="Photos/'.(file_exists('Photos/'.$nomBoisson.'.jpg')?$nomBoisson:'Notfound').'.jpg" alt="'.$nomBoisson.'" class="imageRecette">';
     return $img;
+}
+
+function rechercherCategorieRecette($mot){
+    require 'Donnees.inc.php';
+
+    $res = array();
+    $motif = '/^'.$mot.'.*/i';
+
+    foreach($Recettes as $i => $r){
+        if(preg_match($motif, $r['titre'], $match)){
+            $res[] = $match[0];
+        }
+    }
+
+    foreach($Hierarchie as $c => $a){
+        if(preg_match($motif, $c, $match)){
+            $res[] = $match[0];
+        }
+    }
+
+    return $res;
+}
+
+function rechercherContenuRecette($mot){
+    require 'Donnees.inc.php';
+
+    $res = array();
+    $motifTitre = '/^'.$mot.'.*/i';
+    $leafs = getFeuilles($mot);
+
+    foreach($Recettes as $i => $r){
+        if(preg_match($motifTitre, $r['titre'], $match)){
+            $res[] = $r;
+        }
+        foreach($leafs as $f){
+            $motifFeuille = '/.*'.$f.'.*/i';
+            foreach($r['index'] as $ingredient){
+                if(preg_match($motifFeuille, $ingredient, $match)){
+                    $res[] = $r;
+                }
+            }
+        }
+    }
+
+    $res = array_unique($res, SORT_REGULAR);
+
+    return $res;
 }
 
 ?>
