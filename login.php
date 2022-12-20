@@ -1,7 +1,7 @@
 <!DOCTYPE html>
  <html>
  <head>
-    <title>Vos données</title>
+    <title>Formulaire d'enregistrement</title>
     <meta charset="utf-8" />
     <style type="text/css">
     .ok {
@@ -162,7 +162,7 @@
     }
 
     // Vérification du login
-    if((isset($_POST['password']))) 
+    if((isset($_POST['password'])))
     { 
         $password = strtolower(trim($_POST['password']));
 
@@ -175,7 +175,7 @@
 
 
     // Vérification du nom
-    if((isset($_POST['nom'])) && $_POST['nom'] != '') 
+    if((isset($_POST['nom'])) && $_POST['nom'] != '')
     { 
         $nom = strtolower(trim($_POST['nom']));
 
@@ -200,7 +200,7 @@
 
 
     // Vérification de la date de naissance
-    if(isset($_POST['naissance']) && (trim($_POST['naissance']) !=''))// naissance vide
+    if(isset($_POST['naissance']) && (trim($_POST['naissance']) !='')) // naissance vide
     {
         list($Annee,$Mois,$Jour)=explode('-',$_POST['naissance']);
         if(!checkdate($Mois,$Jour,$Annee))
@@ -259,7 +259,7 @@
     // Sauvegarde des données
     if($ChampsIncorrects=='')
     { 
-        echo 'Formulaire bien rempli : ';
+        echo 'Formulaire bien rempli';
         exit;
     }
  ?>
