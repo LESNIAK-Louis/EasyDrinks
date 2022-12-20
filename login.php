@@ -1,8 +1,10 @@
 <!DOCTYPE html>
  <html>
  <head>
-    <title>Formulaire d'enregistrement</title>
+    <title>EasyDrinks - Compte</title>
     <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
     <style type="text/css">
     .ok {
     }
@@ -13,103 +15,123 @@
     </style>
  </head>
  <body>
-    <h1>S'enregistrer</h1>
-
-    <form method="post" action="#" >
-        <fieldset>
-        <legend>Informations personnelles</legend>
-
-        Login : 
-        <input type="text" class="<?php echo $ClassLogin; ?>" name="login"
-        value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>"
-        required="required" />
-
-        <br/>
-
-        Mot de passe (8 caractères minimum) :
-        <input type="password" id="pass" name="password"
-        class="<?php echo $ClassMdp; ?>"
-        value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>"
-        minlength="8" 
-        required="required" />
-
-        <br/>
-
-        Sexe :
-        <span class="<?php echo $ClassSexe; ?>">
-            <input type="radio" name="sexe" value="f"
-            <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='f') echo 'checked="checked"'; ?>
-            /> femme
-            <input type="radio" name="sexe" value="h"
-            <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='h') echo 'checked="checked"'; ?>
-            /> homme
-        </span>
-
-        <br/>
-
-        Nom :
-        <input type="text" class="<?php echo $ClassNom; ?>" name="nom"
-        value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>"
-        placeholder="DUPONT">
-
-        <br/>
-
-        Prénom :
-        <input type="text" class="<?php echo $ClassPrenom; ?>" name="prenom"
-        value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom']; ?>"
-        placeholder="Jean"/>
-
-        <br/>
+    <div class="header"> 
+        <h1> Easy Drinks </h1>
         
-        Adresse Electronique :
-        <input type="email" class="<?php echo $ClassEmail; ?>" name="email"
-        value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"
-        placeholder="jean.dupont@email.com"
-        />
+    </div>
+
+
+    <div class="menu">
+
+    </div>
+
+
+    <div class="main">
+        <h1>S'enregistrer</h1>
+
+        <form method="post" action="#" >
+            <fieldset>
+            <legend>Informations personnelles</legend>
+
+            Login : 
+            <input type="text" class="<?php echo $ClassLogin; ?>" name="login"
+            value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>"
+            required="required" />
+
+            <br/>
+
+            Mot de passe (8 caractères minimum) :
+            <input type="password" id="pass" name="password"
+            class="<?php echo $ClassMdp; ?>"
+            value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>"
+            minlength="8" 
+            required="required" />
+
+            <br/>
+
+            Sexe :
+            <span class="<?php echo $ClassSexe; ?>">
+                <input type="radio" name="sexe" value="f"
+                <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='f') echo 'checked="checked"'; ?>
+                /> femme
+                <input type="radio" name="sexe" value="h"
+                <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='h') echo 'checked="checked"'; ?>
+                /> homme
+            </span>
+
+            <br/>
+
+            Nom :
+            <input type="text" class="<?php echo $ClassNom; ?>" name="nom"
+            value="<?php if(isset($_POST['nom'])) echo $_POST['nom']; ?>"
+            placeholder="DUPONT">
+
+            <br/>
+
+            Prénom :
+            <input type="text" class="<?php echo $ClassPrenom; ?>" name="prenom"
+            value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom']; ?>"
+            placeholder="Jean"/>
+
+            <br/>
+            
+            Adresse Electronique :
+            <input type="email" class="<?php echo $ClassEmail; ?>" name="email"
+            value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>"
+            placeholder="jean.dupont@email.com"
+            />
+            
+            <br/>
+
+            Date de naissance :
+            <input type="date" class="<?php echo $ClassNaissance; ?>" name="naissance"
+            value="<?php if(isset($_POST['naissance'])) echo $_POST['naissance']; ?>"/>
+
+            <br/>
+
+            Adresse Postale (numéro + rue) :
+            <input type="text" name="postal"
+            value="<?php if(isset($_POST['postal'])) echo $_POST['postal']; ?>"
+            class="<?php echo $ClassPostal; ?>"
+            placeholder="10 rue jean moulin"/>
+            
+            <br/>
+
+            Code postal :
+            <input id="zip" name="zip" type="text" inputmode="numeric" 
+            class="<?php echo $ClassZip; ?>"
+            value="<?php if(isset($_POST['zip'])) echo $_POST['zip']; ?>"
+            placeholder="54500"/>
+            
+            <br/>
+
+            Ville :
+            <input type="text"name="ville"
+            value="<?php if(isset($_POST['ville'])) echo $_POST['ville']; ?>"
+            class="<?php echo $ClassVille; ?>"
+            placeholder="Vandoeuvre-Lès-Nancy"/>
+            
+            <br/>
+
+            Téléphone :
+            <input id="telephone" name="telephone" type="tel"
+            class="<?php echo $ClassTel; ?>"
+            value="<?php if(isset($_POST['telephone'])) echo $_POST['telephone']; ?>"
+            placeholder="+33000000000"/>
+
         
+        </fieldset>
         <br/>
+        <input type="submit" name="submit" value="Valider" />
+        </form>
+    </div>
 
-        Date de naissance :
-        <input type="date" class="<?php echo $ClassNaissance; ?>" name="naissance"
-        value="<?php if(isset($_POST['naissance'])) echo $_POST['naissance']; ?>"/>
+    <div class="right">
 
-        <br/>
+    </div>
 
-        Adresse Postale (numéro + rue) :
-        <input type="text" name="postal"
-        value="<?php if(isset($_POST['postal'])) echo $_POST['postal']; ?>"
-        class="<?php echo $ClassPostal; ?>"
-        placeholder="10 rue jean moulin"/>
-        
-        <br/>
-
-        Code postal :
-        <input id="zip" name="zip" type="text" inputmode="numeric" 
-        class="<?php echo $ClassZip; ?>"
-        value="<?php if(isset($_POST['zip'])) echo $_POST['zip']; ?>"
-        placeholder="54500"/>
-        
-        <br/>
-
-        Ville :
-        <input type="text"name="ville"
-        value="<?php if(isset($_POST['ville'])) echo $_POST['ville']; ?>"
-        class="<?php echo $ClassVille; ?>"
-        placeholder="Vandoeuvre-Lès-Nancy"/>
-        
-        <br/>
-
-        Téléphone :
-        <input id="telephone" name="telephone" type="tel"
-        class="<?php echo $ClassTel; ?>"
-        value="<?php if(isset($_POST['telephone'])) echo $_POST['telephone']; ?>"
-        placeholder="+33000000000"/>
-
-       
-    </fieldset>
-    <br/>
-    <input type="submit" name="submit" value="Valider" />
-    </form>
+    <div class="footer">
+    </div>
 </body>
 </html>
 
