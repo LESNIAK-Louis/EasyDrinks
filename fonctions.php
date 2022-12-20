@@ -72,6 +72,21 @@ function displayRecettes($display)
     return $resultat;
 }
 
+function displayResultatRecherche($resultatRecherche, $totalCriteres){
+
+    $resultat = '';
+    foreach($resultatRecherche as $nbCriteres => $recettes){
+
+        $resultat .= '<p class="separateurResultat"> Résultats qui satisfont '.$nbCriteres.' critère'.($nbCriteres > 1 ? 's' : '').' sur '.$totalCriteres.': </p>';
+        $resultat .= displayRecettes($recettes);
+    }
+
+    if(count($resultatRecherche) == 0){
+        $resultat = '<p class="separateurResultat">Aucun résultat</p>';
+    }
+    return $resultat;
+}
+
 function getImage($recette){
     $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
     'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
@@ -82,7 +97,7 @@ function getImage($recette){
 
     $sansAccents = strtr($recette['titre'], $unwanted_array);
     $nomBoisson = ucwords(strtolower($sansAccents));
-    $img = '<img src="Photos/'.(file_exists('Photos/'.$nomBoisson.'.jpg')?$nomBoisson:'Notfound').'.jpg" alt="'.$nomBoisson.'" class="imageRecette">';
+    $img = '<img src="'.(file_exists('Photos/'.$nomBoisson.'.jpg') ? 'Photos/'.$nomBoisson : 'img/Notfound').'.jpg" alt="'.$nomBoisson.'" class="imageRecette">';
     return $img;
 }
 
@@ -91,12 +106,6 @@ function rechercherCategorieRecette($mot){
 
     $res = array();
     $motif = '/^'.$mot.'.*/i';
-
-    foreach($Recettes as $i => $r){
-        if(preg_match($motif, $r['titre'], $match)){
-            $res[] = $match[0];
-        }
-    }
 
     foreach($Hierarchie as $c => $a){
         if(preg_match($motif, $c, $match)){
