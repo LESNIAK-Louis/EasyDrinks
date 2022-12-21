@@ -23,12 +23,8 @@ function tentativeConnexion($login, $mdp){
     $query = "  SELECT * FROM utilisateur WHERE login = ? AND mdp = ?;";
     $result = $pdo->prepare($query);
 
-    try{
-        $result->execute(array($login, $mdp));
-        return true;
-    }catch(PDOException $e){
-        return false;
-    }
+    $result->execute(array($login, $mdp));
+    return ($result->rowCount() == 1);
 }
 
 function modifierUtilisateur($utilisateur){

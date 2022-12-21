@@ -13,6 +13,40 @@
         background-color: red;
     }
     </style>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
+    <script type="text/javascript">
+        
+        let mdp = '';
+    
+        function sendData() {
+            $.post("loginValidation.php", 
+            {
+                login: $('#login').val(),
+                password: mdp
+                
+            }, function(data, status){
+                if(data == "OK"){
+                    $(location).prop('href', './index.php?#');
+                }else{
+                    $('.retourFormulaire').remove();
+                    $('.main').append(data);
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            $(document).on('click', '#valider', function(){
+                sendData();
+            });
+
+            $(document).on('keyup', '#pass', function(){
+                mdp = $(this).val();
+            });
+        });
+        
+    </script>
+
  </head>
  <body>
     <div class="header"> 
@@ -29,29 +63,28 @@
     <div class="main">
         <h1>S'identifier</h1>
 
-        <form method="post" action="#" >
+        <form id="formLogin" >
             <fieldset>
             <legend>Informations personnelles</legend>
 
             Login : 
-            <input type="text" class="<?php echo $ClassLogin; ?>" name="login"
-            value="<?php if(isset($_POST['login'])) echo $_POST['login']; ?>"
+            <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
             required="required" />
 
             <br/>
 
             Mot de passe (8 caractères minimum) :
-            <input type="password" id="pass" name="password"
+            <input type="password" id="pass"
             class="<?php echo $ClassMdp; ?>"
-            value="<?php if(isset($_POST['password'])) echo $_POST['password']; ?>"
+            value=""
+            minlength="8" 
             required="required" />
 
         </fieldset>
         <br/>
-
-        <input type="submit" name="submit" value="Valider" />
-        <a href="register.php">S'enregistrer</a>
         </form>
+        <button id='valider'>Valider</button>
+        <a href="register.php">S'enregistrer</a>
     </div>
 
     <div class="right">
@@ -62,76 +95,3 @@
     </div>
 </body>
 </html>
-
-
-<?php
-
-require 'db.php';
-
-/* Reprise de la correction, car mon ancien code était confu
-   ce travail n'a PAS été réalisé par mes soins
-*/
-
-// Vérification du formulaire
- $ClassLogin='ok';
- $ClassMdp='ok';
- $ChampsIncorrects='';
-
- if(isset($_POST['submit'])) // le formulaire vient d'être soumis
- {
-    $ClassLogin='ok';
-    $ClassMdp='ok';
-    $ChampsIncorrects='';
-
-
-    // Vérification du login
-    if((isset($_POST['login']))) 
-    { 
-        $login = strtolower(trim($_POST['login']));
-
-        if ((strlen($login)<2)  // le login est trop court
-        || !preg_match("/^[^\W]+\.?(?:[- ][^\W]+)*$/i", $login)) // lettres, chiffres, underscores, accents, points, espaces
-        {
-            $ChampsIncorrects=$ChampsIncorrects.'<li>login</li>';
-            $ClassLogin='error';
-        }
-    }
-
-    // Vérification du password
-    if((isset($_POST['password'])))
-    { 
-        $password = strtolower(trim($_POST['password']));
-
-        if (!preg_match("/^([^\W]|[!#$\*%{}\^&?\.\s-]){8}([^\W]|[!#$\*%{}\^&?\.\s-])*$/i", $password)) // lettres, chiffres, underscores, accents, points et caractères dans l'ensemble {!#$*%^&?.-} (8 caractères mini)
-        {
-            $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, underscores, accents, points et caractères dans l\'ensemble {!#$*%^&?.-})</li>';
-            $ClassLogin='error';
-        }
-    }
-
-    // Login dans la bdd
-    if($ChampsIncorrects=='')
-    { 
-        if(tentativeConnexion($login, $password)){
-
-            echo 'Connexion réussie';
-
-        }else{
-            echo '
-                <br />
-                L\'utilisateur ou le mot de passe est incorrect';
-        }   
-        exit;
-    }
-}
- ?>
-
-
- <?php
- if(isset($_POST['submit'])) // le formulaire a été soumis (et est incorrect)
- { 
-    echo '
-    <br />
-    L\'utilisateur ou le mot de passe est incorrect';
- }
- ?>
