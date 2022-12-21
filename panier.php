@@ -19,7 +19,9 @@
 
 
     <div class="main">
-            <div class="containerRecettes"></div>
+            <div class="containerRecettes">
+                
+            </div>
             <div class="contenuRecette"></div>
     </div>
 
