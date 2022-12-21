@@ -231,18 +231,7 @@
             $ClassPostal='error';
         }
     }
-
-    // Vérification de la ville 
-    if(isset($_POST['ville']) && $_POST['ville'] != '')
-    { 
-        $ville = strtolower(trim($_POST['ville']));
-        if(!preg_match("/^[^\W\d_]+\.?(?:[- ][^\W\d_]+\.?)*$/i", $ville)) // lettres, tirets, points, accents, espaces
-        {
-            $ChampsIncorrects=$ChampsIncorrects.'<li>ville</li>';
-            $ClassVille='error';
-        }
-    }
-
+    
     // Vérification téléphone
     if(isset($_POST['telephone']) && $_POST['telephone'] != '')
     { 
