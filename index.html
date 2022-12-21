@@ -16,9 +16,7 @@
             $('.listeCategories').empty();
             $('.navigation').empty();
             jQuery.each(categorie, function(index, value){
-                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value +
-                                                "</a>" + "<button class='ajouterIngredient'>+</button>"+
-                                                "<button class='ajouterPasIngredient'>x</button>" + "</div>");
+                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a> </div>");
                 
             });
             histo.forEach(function(item, index, histo){
@@ -121,15 +119,22 @@
             $(".autocomplete-items").remove();
         }
 
-        function effectuerRecherche(mot){
+        function effectuerRecherche(liste){
             $.post("recherche.php", 
                 {
-                    recherche: mot
+                    recherche: liste
                 }, function(data, status){
+
                     $('.containerRecettes').empty();
                     $('.containerRecettes').append(data);
                     mettreAJourHistorique('Aliment');
+                    
                 });
+        }
+
+        function ucfirst(str){
+            const strUcFirst = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+            return strUcFirst;
         }
 
 
@@ -168,26 +173,32 @@
                 selectSuggestion($(this).text());
             });
             
-            $(document).on('click', '#boutonRechercheTexte', function(){
+            $(document).on('click', '#boutonRechercheRecette', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
-                effectuerRecherche($("#champRecherche").val());
+                $('#champRecherche').val("");
+                $(".autocomplete-items").remove();
+                effectuerRecherche(ingredients);
             });
 
-            $(document).on('click', '.ajouterIngredient', function(){
-                let ing = $(this).siblings('a').text();
+            $(document).on('click', '#ajouterIngredient', function(){
+                let ing = ucfirst($('#champRecherche').val());
                 if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
                     ingredients.push(ing);
                     mettreAJourIngredients();
                 }
+                $('#champRecherche').val("");
+                $(".autocomplete-items").remove();
             });
 
-            $(document).on('click', '.ajouterPasIngredient', function(){
-                let ing = $(this).siblings('a').text();
+            $(document).on('click', '#ajouterPasIngredient', function(){
+                let ing = ucfirst($('#champRecherche').val());
                 if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
                     ingredients.push("Pas de " + ing);
                     mettreAJourIngredients();
                 }
+                $('#champRecherche').val("");
+                $(".autocomplete-items").remove();
             });
 
             $(document).on('click', '.retirerIngredient', function(){
@@ -197,6 +208,8 @@
                     ingredients.splice(index, 1);
                     mettreAJourIngredients();
                 }
+                $('#champRecherche').val("");
+                $(".autocomplete-items").remove();
             });
             
             mettreAJourCategories('Aliment');
@@ -214,19 +227,14 @@
         <div class="header"> 
             <h1> Easy Drinks </h1>
             <div class="topRight">
-                <a href="./login.php"><img src="Photos/login.png" alt="login" class="imageLogin"></a>
+                <a href="./login.php"><img src="img/login.png" alt="login" class="imageLogin"></a>
             </div>
             
         </div>
 
 
         <div class="menu">
-            <form class="rechercheTexte" autocomplete="off">
-                <div class="autocomplete">
-                    <input type="text" id="champRecherche">
-                </div>
-                <button id="boutonRechercheTexte"> Rechercher </button>
-            </form>
+            
 
             <div class="listeCategories">
                 <div class="categorie">
@@ -245,6 +253,13 @@
         </div>
 
         <div class="right">
+            <form class="rechercheTexte" autocomplete="off">
+                <div class="autocomplete">
+                    <input type="text" id="champRecherche">
+                </div>
+                <button id="ajouterIngredient">+</button>
+                <button id="ajouterPasIngredient">-</button>
+            </form>
             <div class="listeIngredients">
                 <p>Aucun ingrédient sélectionné</p>
             </div>
