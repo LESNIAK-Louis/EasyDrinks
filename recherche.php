@@ -9,7 +9,7 @@ if(!empty($_POST['recherche'])){
 
     foreach($_POST['recherche'] as $ing){
 
-        $ning = str_replace('Pas de ', '', $ing);
+        $ning = str_replace('Sans ', '', $ing);
 
         if(!array_key_exists($ning, $Hierarchie)){
             echo '<p class="separateurResultat">Ingrédients non valides</p>';

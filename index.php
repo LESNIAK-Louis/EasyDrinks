@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -183,7 +185,7 @@
 
             $(document).on('click', '#ajouterIngredient', function(){
                 let ing = ucfirst($('#champRecherche').val());
-                if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
+                if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
                     ingredients.push(ing);
                     mettreAJourIngredients();
                 }
@@ -193,8 +195,8 @@
 
             $(document).on('click', '#ajouterPasIngredient', function(){
                 let ing = ucfirst($('#champRecherche').val());
-                if(!ingredients.includes(ing) && !ingredients.includes("Pas de " + ing)){
-                    ingredients.push("Pas de " + ing);
+                if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
+                    ingredients.push("Sans " + ing);
                     mettreAJourIngredients();
                 }
                 $('#champRecherche').val("");
@@ -225,7 +227,7 @@
     <div class="grid-container">
 
         <div class="header"> 
-            <a href="./" class="titre"> <h1> Easy Drinks </h1> </a>
+            <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
             <div class="topRight">
                 <a href="./login.php"><img src="img/login.png" alt="login" class="imageLogin"></a>
             </div>

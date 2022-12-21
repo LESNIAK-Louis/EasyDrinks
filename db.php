@@ -1,14 +1,39 @@
 <?php
 
-function ajouterUtilisateur($pdo, $utilisateur){
+function ajouterUtilisateur($utilisateur){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $query = "  INSERT INTO utilisateur VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     $result = $pdo->prepare($query);
 
-    $result->execute(array($utilisateur['login'], $utilisateur['mdp'], $utilisateur['nom'], $utilisateur['prenom'], $utilisateur['sexe'], $utilisateur['email'], $utilisateur['ddn'], $utilisateur['adresse'], $utilisateur['cp'], $utilisateur['ville'], $utilisateur['noTel']));
+    try{
+        $result->execute(array($utilisateur['login'], $utilisateur['mdp'], $utilisateur['nom'], $utilisateur['prenom'], $utilisateur['sexe'], $utilisateur['email'], $utilisateur['ddn'], $utilisateur['adresse'], $utilisateur['cp'], $utilisateur['ville'], $utilisateur['noTel']));
+    }catch(PDOException $e){
+        throw new Exception($e->errorInfo[1]);
+    }
 }
 
-function modifierUtilisateur($pdo, $utilisateur){
+function tentativeConnexion($login, $mdp){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $query = "  SELECT * FROM utilisateur WHERE login = ? AND mdp = ?;";
+    $result = $pdo->prepare($query);
+
+    try{
+        $result->execute(array($login, $mdp));
+        return true;
+    }catch(PDOException $e){
+        return false;
+    }
+}
+
+function modifierUtilisateur($utilisateur){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
 
     $query = "  UPDATE utilisateur SET login=?, mdp=?, nom=?, prenom=?, sexe=?, email=?, ddn=?, adresse=?, cp=?, ville=?, noTel=? WHERE login=?;";
     $result = $pdo->prepare($query);
@@ -16,7 +41,9 @@ function modifierUtilisateur($pdo, $utilisateur){
     $result->execute(array($utilisateur['login'], $utilisateur['mdp'], $utilisateur['nom'], $utilisateur['prenom'], $utilisateur['sexe'], $utilisateur['email'], $utilisateur['ddn'], $utilisateur['adresse'], $utilisateur['cp'], $utilisateur['ville'], $utilisateur['noTel'], $utilisateur['login']));
 }
 
-function ajouterAuPanier($pdo, $login, $idRecette){
+function ajouterAuPanier($login, $idRecette){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
 
     $query = "  INSERT INTO panier VALUES (?, ?);";
     $result = $pdo->prepare($query);
@@ -24,15 +51,19 @@ function ajouterAuPanier($pdo, $login, $idRecette){
     $result->execute(array($login, $idRecette));
 }
 
-function supprimerDuPanier($pdo, $login, $idRecette){
+function supprimerDuPanier($login, $idRecette){
     
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
+
     $query = "  DELETE FROM panier WHERE login = ? AND idRecette = ?;";
     $result = $pdo->prepare($query);
 
     $result->execute(array($login, $idRecette));
 }
 
-function getPanier($pdo, $login){
+function getPanier($login){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
 
     $query = "  SELECT idRecette FROM panier WHERE login = ?;";
     $result = $pdo->prepare($query);
@@ -48,8 +79,6 @@ function getPanier($pdo, $login){
 
 try{
 
-    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
-
     $utilisateur = array('login' => 'theo',
                          'mdp' => 'theo', 
                          'prenom' => 'Theo',
@@ -62,6 +91,7 @@ try{
                          'ville' => 'nancy',
                          'noTel' => '0123456789');
 
+    /*
     ajouterUtilisateur($pdo, $utilisateur);
     ajouterAuPanier($pdo, "theo", 5);
     ajouterAuPanier($pdo, "theo", 3);
@@ -77,7 +107,7 @@ try{
     $utilisateur['adresse'] = 'abcdef';
 
     modifierUtilisateur($pdo, $utilisateur);
-    
+    */
 
 }catch(Exception $e){
     
