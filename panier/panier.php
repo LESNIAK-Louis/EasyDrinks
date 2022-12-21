@@ -4,11 +4,11 @@
     <title>EasyDrinks - Compte</title>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
  </head>
  <body>
     <div class="header"> 
-        <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         
     </div>
 

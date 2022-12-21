@@ -5,7 +5,7 @@
     <title>EasyDrinks - Compte</title>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
     <script type="text/javascript">
@@ -16,7 +16,7 @@
  </head>
  <body>
     <div class="header"> 
-        <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         <?php
             if(isset($_SESSION['login'])){
                 echo $_SESSION['login'];

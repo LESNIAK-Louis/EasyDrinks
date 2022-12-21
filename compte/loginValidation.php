@@ -2,7 +2,7 @@
 
 session_start();
 
-require 'db.php';
+require '../db.php';
 
 /* Reprise de la correction, car mon ancien code était confu
    ce travail n'a PAS été réalisé par mes soins

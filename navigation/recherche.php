@@ -1,7 +1,7 @@
 <?php
 
-require 'fonctions.php';
-require 'Donnees.inc.php';
+require '../fonctions.php';
+require '../Donnees.inc.php';
 
 $cpt = array_fill(0, count($Recettes), array());
 

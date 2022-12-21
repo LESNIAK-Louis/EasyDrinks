@@ -1,6 +1,6 @@
 <?php
 
-require 'fonctions.php';
+require '../fonctions.php';
 
 if(!empty($_POST['recherche'])){
 

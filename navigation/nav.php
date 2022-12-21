@@ -1,6 +1,6 @@
 <?php
 
-require 'Donnees.inc.php';
+require '../Donnees.inc.php';
 
 try{
     $res = $Hierarchie[$_POST['current']]['sous-categorie'];

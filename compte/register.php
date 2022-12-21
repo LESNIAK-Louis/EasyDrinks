@@ -6,7 +6,7 @@
     <title>EasyDrinks - Inscription</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
 
     <style type="text/css">
     .ok {
@@ -39,7 +39,7 @@
                 
             }, function(data, status){
                 if(data == "OK"){
-                    $(location).prop('href', './index.php?#');
+                    $(location).prop('href', '../index.php?#');
                 }else{
                     $('.retourFormulaire').remove();
                     $('.main').append(data);
@@ -61,7 +61,7 @@
  </head>
  <body>
     <div class="header"> 
-        <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         
     </div>
 

@@ -27,7 +27,7 @@
         }
 
         function mettreAJourCategories(categorieActuelle){
-            $.post("nav.php", 
+            $.post("navigation/nav.php", 
             {
                 current: categorieActuelle
             }, function(data, status){
@@ -46,7 +46,7 @@
         function mettreAJourHistorique(categorieActuelle){
             let removeIndex = histo.indexOf(categorieActuelle) + 1;
             histo.splice(removeIndex, histo.length - removeIndex);
-            $.post("nav.php", 
+            $.post("navigation/nav.php", 
             {
                 current: categorieActuelle
             }, function(data, status){
@@ -122,7 +122,7 @@
         }
 
         function effectuerRecherche(liste){
-            $.post("recherche.php", 
+            $.post("navigation/recherche.php", 
                 {
                     recherche: liste
                 }, function(data, status){
@@ -179,7 +179,7 @@
 
             $('#champRecherche').keyup( function(){
                 let mot = $(this).val();
-                $.post("suggestions.php",
+                $.post("navigation/suggestions.php",
                 {
                     recherche: mot
                 }, function(data, status){
@@ -251,8 +251,8 @@
             }
             ?> 
             <div class="topRight">
-                <a href="./panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
-                <a href=<?php echo (isset($_SESSION['login']) ? "./compte.php" : "./login.php"); ?> ><img src="img/login.png" alt="login" class="imageLogin"></a>
+                <a href="./panier/panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
+                <a href=<?php echo (isset($_SESSION['login']) ? "./compte/compte.php" : "./compte/login.php"); ?> ><img src="img/login.png" alt="login" class="imageLogin"></a>
             </div>
             
         </div>
