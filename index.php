@@ -9,147 +9,11 @@
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
+    <script type="text/javascript" src="fonctions.js"></script>
     <script type="text/javascript">
 
         let histo = new Array(' ');
         let ingredients = new Array();
-
-        function mettreAJourAffichage(categorie){
-            $('.listeCategories').empty();
-            $('.navigation').empty();
-            jQuery.each(categorie, function(index, value){
-                $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a> </div>");
-                
-            });
-            histo.forEach(function(item, index, histo){
-                $('.navigation').append("<li><a class='histo' href='#'>" + item + "</a></li>")
-            });
-        }
-
-        function mettreAJourCategories(categorieActuelle){
-            $.post("navigation/nav.php", 
-            {
-                current: categorieActuelle
-            }, function(data, status){
-                
-                let res = JSON.parse(data);
-                if(!res.error){
-                    
-                    if(!histo.includes(categorieActuelle)){
-                        histo.push(categorieActuelle);
-                    }
-                    mettreAJourAffichage(res);
-                }
-            });
-        }
-
-        function mettreAJourHistorique(categorieActuelle){
-            let removeIndex = histo.indexOf(categorieActuelle) + 1;
-            histo.splice(removeIndex, histo.length - removeIndex);
-            $.post("navigation/nav.php", 
-            {
-                current: categorieActuelle
-            }, function(data, status){
-                mettreAJourAffichage(JSON.parse(data));
-            });
-        }
-
-        function mettreAJourIngredients(nouvelIngredient){
-            $('.listeIngredients').empty()
-            ingredients.forEach(function(item, index, ingredients){
-                $('.listeIngredients').append("<div class='ingredientItem'><button class='retirerIngredient'>X</button><p>" + item + "</p></div>");
-            });
-            if(ingredients.length == 0){
-                $('.listeIngredients').append("<p>Aucun ingrédient sélectionné</p>");
-                $('#boutonRechercheRecette').hide();
-            }else{
-                $('#boutonRechercheRecette').show();
-            }
-        }
-
-        function mettreAJourRecettes(categorieActuelle){
-            $.post("recettes.php", 
-            {
-                current: categorieActuelle
-            }, function(data, status){
-                $('.containerRecettes').empty();
-                $('.containerRecettes').append(data);
-            });
-        }
-
-        function afficherRecette(recetteActuelle){
-            $.post("detailRecette.php", 
-            {
-                current: recetteActuelle
-            }, function(data, status){
-                const res = JSON.parse(data);
-                if(!res.error){
-                    $('.containerRecettes').hide();
-                    $('.contenuRecette').show();
-                    $('.contenuRecette').empty();
-
-                    $('.contenuRecette').append( '<h1>' + res.titre + '</h1>' + '<br>'); // Titre
-
-                    $('.contenuRecette').append(res.image); // Image
-
-                    // Ingrédients
-                    $('.contenuRecette').append('<h2>' + 'Liste des ingrédients' + '</h2>' + '<br>' +
-                    '<ul class =\'ulIngredients\' ></ul>'
-                    );
-                    var ingredients = res.ingredients.split('|');
-                    for (let i = 0; i < ingredients.length; ++i) {
-                        $('.ulIngredients').append('<li>' + ingredients[i] + '</li>');
-                    }
-
-                    // Préparation
-                    $('.contenuRecette').append(
-                        '<h2>' + 'Préparation' + '</h2>' + '<br>' +
-                        '<ol class=\'olPreparation\'></ol>'
-                    );
-                    var preparation = res.preparation.split(/[.!]/);
-                    for (let i = 0; i < preparation.length; ++i) {
-                        if(preparation[i] != '')
-                            $('.olPreparation').append('<li>' + preparation[i] + '</li>');
-                    }
-                   
-                } 
-            });
-        }
-
-        function selectSuggestion(val) {
-            $("#champRecherche").val(val);
-            $(".autocomplete-items").remove();
-        }
-
-        function effectuerRecherche(liste){
-            $.post("navigation/recherche.php", 
-                {
-                    recherche: liste
-                }, function(data, status){
-
-                    $('.containerRecettes').empty();
-                    $('.containerRecettes').append(data);
-                    mettreAJourHistorique('Aliment');
-                    
-                });
-        }
-
-        function ucfirst(str){
-            const strUcFirst = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-            return strUcFirst;
-        }
-
-        function mettreAJourFavori(imageFavRecette){
-            boiteRecette = imageFavRecette.parent().get(0);
-            titreRecette = $(".titreRecette", boiteRecette).text();
-
-            $.post("favori.php", 
-            {
-                current: titreRecette
-            }, function(data, status){
-                $(".imageFavRecette", boiteRecette).attr("src", data)
-            });
-        }
 
 
         $(document).ready(function(){
@@ -157,19 +21,19 @@
             $(document).on('click', '.boutonMenu', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
-                mettreAJourCategories($(this).text());
+                mettreAJourCategories($(this).text(), histo);
                 mettreAJourRecettes($(this).text());
             });
 
             $(document).on('click', '.histo', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
-                mettreAJourHistorique($(this).text());
+                mettreAJourHistorique($(this).text(), histo);
                 mettreAJourRecettes($(this).text());
             });
 
             $(document).on('click', '.boiteRecette', function(){
-                afficherRecette($(".titreRecette", this).text());
+                afficherRecette($(".titreRecette", this).text(), '');
             });
 
             $(document).on('click', '.imageFavRecette', function(){
@@ -197,14 +61,14 @@
                 $('.contenuRecette').hide();
                 $('#champRecherche').val("");
                 $(".autocomplete-items").remove();
-                effectuerRecherche(ingredients);
+                effectuerRecherche(ingredients, histo);
             });
 
             $(document).on('click', '#ajouterIngredient', function(){
                 let ing = ucfirst($('#champRecherche').val());
                 if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
                     ingredients.push(ing);
-                    mettreAJourIngredients();
+                    mettreAJourIngredients(ingredients);
                 }
                 $('#champRecherche').val("");
                 $(".autocomplete-items").remove();
@@ -214,7 +78,7 @@
                 let ing = ucfirst($('#champRecherche').val());
                 if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
                     ingredients.push("Sans " + ing);
-                    mettreAJourIngredients();
+                    mettreAJourIngredients(ingredients);
                 }
                 $('#champRecherche').val("");
                 $(".autocomplete-items").remove();
@@ -225,16 +89,16 @@
                 if(ingredients.includes(ing)){
                     let index = ingredients.indexOf(ing);
                     ingredients.splice(index, 1);
-                    mettreAJourIngredients();
+                    mettreAJourIngredients(ingredients);
                 }
                 $('#champRecherche').val("");
                 $(".autocomplete-items").remove();
             });
             
-            mettreAJourCategories('Aliment');
-            mettreAJourHistorique('Aliment');
+            mettreAJourCategories('Aliment', histo);
+            mettreAJourHistorique('Aliment', histo);
             mettreAJourRecettes('Aliment');
-            mettreAJourIngredients();
+            mettreAJourIngredients(ingredients);
         });
 
         
