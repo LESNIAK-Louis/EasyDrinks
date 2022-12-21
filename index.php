@@ -139,6 +139,11 @@
             return strUcFirst;
         }
 
+        function mettreAJourFavori(imageFavRecette){
+            $boiteRecette = imageFavRecette.parent().get(0);
+            $titreRecette = $(".titreRecette", $boiteRecette).text();
+        }
+
 
         $(document).ready(function(){
 
@@ -158,6 +163,11 @@
 
             $(document).on('click', '.boiteRecette', function(){
                 afficherRecette($(".titreRecette", this).text());
+            });
+
+            $(document).on('click', '.imageFavRecette', function(){
+                mettreAJourFavori($(this));
+                stopPropagation();
             });
 
             $('#champRecherche').keyup( function(){
@@ -229,6 +239,7 @@
         <div class="header"> 
             <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
             <div class="topRight">
+                <a href="./panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
                 <a href="./login.php"><img src="img/login.png" alt="login" class="imageLogin"></a>
             </div>
             

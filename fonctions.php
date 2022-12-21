@@ -56,6 +56,14 @@ function getRecettes($ingredients){
     return $recettes;
 }
 
+function getRecette($titre){
+    require 'Donnees.inc.php';
+    foreach($Recettes as $recette){
+        if($recette['titre'] == $titre)
+        return $recette;
+    }
+}
+
 function displayRecettes($display)
 {
     require 'Donnees.inc.php';
@@ -63,7 +71,9 @@ function displayRecettes($display)
     $resultat = '';
     foreach($display as $recette)
     {
-        $resultat .= '<div class="boiteRecette">'.getImage($recette).'
+        $resultat .= '<div class="boiteRecette">'.
+                '<img src="img/etoile_vide.png" alt="Image Favori Recette" class="imageFavRecette">'
+                .getImage($recette).'
                 <div class="boiteTitreRecette">
                     <p class="titreRecette">'.$recette['titre'].'</p>
                 </div>

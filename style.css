@@ -131,6 +131,13 @@ img.imageRecette{
     height: 200px; 
 }
 
+img.imageFavRecette{
+    float:right;
+
+    width: 25px;
+    height: 25px;
+}
+
 div.contenuRecette{
     font-size: medium;
     text-align: center;
