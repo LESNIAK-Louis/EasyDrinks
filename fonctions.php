@@ -56,23 +56,32 @@ function getRecettes($ingredients){
     return $recettes;
 }
 
-function getRecette($titre){
+function getRecetteId($titre){
     require 'Donnees.inc.php';
     foreach($Recettes as $recette){
         if($recette['titre'] == $titre)
-        return $recette;
+        {
+            if(($key = array_search($recette, $Recettes)) !== false)
+                return $key;
+        }
     }
 }
 
 function displayRecettes($display)
 {
     require 'Donnees.inc.php';
+    session_start();
 
     $resultat = '';
     foreach($display as $recette)
     {
+        $imgFav = 'etoile_vide.png';
+        if(isset($_SESSION['favoris']) && in_array(getRecetteId($recette['titre']), $_SESSION['favoris']))
+            $imgFav = 'etoile_pleine.png';
+
+
         $resultat .= '<div class="boiteRecette">'.
-                '<img src="img/etoile_vide.png" alt="Image Favori Recette" class="imageFavRecette">'
+                '<img src="img/'.$imgFav.'" alt="Image Favori Recette" class="imageFavRecette">'
                 .getImage($recette).'
                 <div class="boiteTitreRecette">
                     <p class="titreRecette">'.$recette['titre'].'</p>
