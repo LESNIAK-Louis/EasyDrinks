@@ -70,7 +70,11 @@ function getRecetteId($titre){
 function displayRecettes($display)
 {
     require 'Donnees.inc.php';
-    session_start();
+
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
 
     $resultat = '';
     foreach($display as $recette)
@@ -88,6 +92,7 @@ function displayRecettes($display)
                 </div>
             </div>';
     }
+
     return $resultat;
 }
 

@@ -36,7 +36,7 @@
 
         <?php
 
-            require 'db.php';
+            require '../db.php';
 
             if(isset($_SESSION['login'])){
 
