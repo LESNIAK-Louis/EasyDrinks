@@ -44,6 +44,17 @@ if($ChampsIncorrects=='')
 
         $_SESSION['login'] = $login;
 
+        $panier = getPanier($login);
+        $favoris = $panier;
+        if(isset($_SESSION['favoris'])){
+            foreach($_SESSION['favoris'] as $f){
+                ajouterAuPanier($login, $f);
+            }
+            $favoris = array_merge($panier, $_SESSION['favoris']);
+            $favoris = array_unique($favoris);
+        }
+        $_SESSION['favoris'] = $favoris;
+
         echo 'OK';
 
     }else{

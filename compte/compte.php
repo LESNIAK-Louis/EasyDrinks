@@ -15,6 +15,18 @@
             $(location).prop('href', './modifierCompte.php');
         }
 
+        $(document).ready(function(){
+            $(document).on('click', '#deconnexion', function(){
+                $.post("deconnexion.php", 
+                {
+                    login: $('#login').val(),
+        
+                }, function(data, status){
+                    $(location).prop('href', '../index.php?#');
+                });
+            });
+        });
+
     </script>
 
  </head>
@@ -23,7 +35,7 @@
         <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         <?php
             if(isset($_SESSION['login'])){
-                echo $_SESSION['login'];
+                echo 'Connecté en tant que '.$_SESSION['login'];
             }
             ?> 
         
@@ -101,7 +113,7 @@
                 }
 
                 echo '
-                    <p>Login : '.$login.'</p>
+                    <p>Login : <span id="login">'.$login.'</span></p>
                     <p>Nom : '.$nom.'</p>
                     <p>Prénom : '.$prenom.'</p>
                     <p>Sexe : '.$sexe.'</p>
@@ -115,6 +127,7 @@
             }
         ?>
         <button onClick="modifierCompte()">Modifier</button>
+        <button id="deconnexion">Se déconnecter</button>
     </div>
 
     <div class="right">

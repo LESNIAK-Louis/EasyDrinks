@@ -111,7 +111,7 @@
             <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
             <?php
             if(isset($_SESSION['login'])){
-                echo $_SESSION['login'];
+                echo 'Connecté en tant que '.$_SESSION['login'];
             }
             ?> 
             <div class="topRight">

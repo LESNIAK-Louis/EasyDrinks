@@ -96,11 +96,14 @@ function getPanier($login){
 
     $result->execute(array($login));
 
+    $panier = array();
     while($row = $result->fetch()){
 
-        echo "idRecette = ".$row['idRecette']."<br/>";
+        $panier[] = $row['idRecette'];
     }
     $result->closeCursor();
+
+    return $panier;
 }
 
 try{
