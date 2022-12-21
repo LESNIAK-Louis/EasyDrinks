@@ -11,7 +11,6 @@ require '../db.php';
 // Vérification du formulaire
 
 $ClassLogin='ok';
-$ClassMdp='ok';
 $ClassSexe='ok';
 $ClassNom='ok';
 $ClassPrenom='ok';
@@ -33,19 +32,6 @@ if((isset($_POST['login'])))
         $ClassLogin='error';
     }
 }
-
-// Vérification du password
-if((isset($_POST['password'])))
-{ 
-    $password = trim($_POST['password']);
-
-    if (strlen($password) > 100 || strlen($password) < 8 || !preg_match("/^[a-zA-Z0-9àâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý \-\_!#$\*%{}\^&?\. ]+$/i", $password)) // lettres, chiffres, tirets, accents, points et caractères dans l'ensemble {!#$*%^&?.} (8 caractères mini)
-    {
-        $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, tirets, accents, points et caractères dans l\'ensemble {!#$*%^&?.})</li>';
-        $ClassLogin='error';
-    }
-}
-
 
 // Vérification du nom
 if((isset($_POST['nom'])) && $_POST['nom'] != '')
@@ -145,7 +131,6 @@ if(isset($_POST['telephone']) && $_POST['telephone'] != '')
 if($ChampsIncorrects=='')
 { 
     $utilisateur = array(   'login' => $login,
-                            'mdp' => $password, 
                             'prenom' => (isset($Prenom) ? $Prenom : null),
                             'nom' => (isset($nom) ? $nom : null),
                             'sexe' => (isset($sexe) ? $sexe : null),
@@ -157,8 +142,7 @@ if($ChampsIncorrects=='')
                             'noTel' => (isset($tel) ? $tel : null));
 
     try{
-        ajouterUtilisateur($utilisateur);
-        $_SESSION['login'] = $login;
+        modifierUtilisateur($utilisateur);
 
         echo 'OK';
     }catch(Exception $e){

@@ -29,7 +29,7 @@
                 password: mdp,
                 nom: $('#nom').val(),
                 prenom: $('#prenom').val(),
-                sexe: $('#sexe').val(),
+                sexe: $('#sexe:checked').val(),
                 email: $('#email').val(),
                 naissance: $('#ddn').val(),
                 postal: $('#postal').val(),
