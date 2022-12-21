@@ -238,6 +238,11 @@
 
         <div class="header"> 
             <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+            <?php
+            if(isset($_SESSION['login'])){
+                echo $_SESSION['login'];
+            }
+            ?> 
             <div class="topRight">
                 <a href="./panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
                 <a href="./login.php"><img src="img/login.png" alt="login" class="imageLogin"></a>
