@@ -245,7 +245,7 @@
             ?> 
             <div class="topRight">
                 <a href="./panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
-                <a href="./login.php"><img src="img/login.png" alt="login" class="imageLogin"></a>
+                <a href=<?php echo (isset($_SESSION['login']) ? "./compte.php" : "./login.php"); ?> ><img src="img/login.png" alt="login" class="imageLogin"></a>
             </div>
             
         </div>

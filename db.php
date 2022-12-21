@@ -27,6 +27,36 @@ function tentativeConnexion($login, $mdp){
     return ($result->rowCount() == 1);
 }
 
+function getUtilisateur($login){
+
+    $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $query = "  SELECT * FROM utilisateur WHERE login = ?;";
+    $result = $pdo->prepare($query);
+
+    $result->execute(array($login));
+
+    $utilisateur = array();
+    while($row = $result->fetch()){
+
+        $utilisateur = array('login' => $row['login'],
+                         'mdp' => $row['mdp'], 
+                         'prenom' => $row['prenom'],
+                         'nom' => $row['nom'],
+                         'sexe' => $row['sexe'],
+                         'email' => $row['email'],
+                         'ddn' => $row['ddn'],
+                         'adresse' => $row['adresse'],
+                         'cp' => $row['cp'],
+                         'ville' => $row['ville'],
+                         'noTel' => $row['noTel']);
+    }
+    $result->closeCursor();
+
+    return $utilisateur;
+}
+
 function modifierUtilisateur($utilisateur){
 
     $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
