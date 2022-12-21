@@ -140,8 +140,15 @@
         }
 
         function mettreAJourFavori(imageFavRecette){
-            $boiteRecette = imageFavRecette.parent().get(0);
-            $titreRecette = $(".titreRecette", $boiteRecette).text();
+            boiteRecette = imageFavRecette.parent().get(0);
+            titreRecette = $(".titreRecette", boiteRecette).text();
+
+            $.post("favori.php", 
+            {
+                current: titreRecette
+            }, function(data, status){
+                $(".imageFavRecette", boiteRecette).attr("src", data)
+            });
         }
 
 
