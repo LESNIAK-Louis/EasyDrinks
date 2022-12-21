@@ -61,10 +61,10 @@ function modifierUtilisateur($utilisateur){
 
     $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
 
-    $query = "  UPDATE utilisateur SET login=?, mdp=?, nom=?, prenom=?, sexe=?, email=?, ddn=?, adresse=?, cp=?, ville=?, noTel=? WHERE login=?;";
+    $query = "  UPDATE utilisateur SET nom=?, prenom=?, sexe=?, email=?, ddn=?, adresse=?, cp=?, ville=?, noTel=? WHERE login=?;";
     $result = $pdo->prepare($query);
 
-    $result->execute(array($utilisateur['login'], $utilisateur['mdp'], $utilisateur['nom'], $utilisateur['prenom'], $utilisateur['sexe'], $utilisateur['email'], $utilisateur['ddn'], $utilisateur['adresse'], $utilisateur['cp'], $utilisateur['ville'], $utilisateur['noTel'], $utilisateur['login']));
+    $result->execute(array($utilisateur['nom'], $utilisateur['prenom'], $utilisateur['sexe'], $utilisateur['email'], $utilisateur['ddn'], $utilisateur['adresse'], $utilisateur['cp'], $utilisateur['ville'], $utilisateur['noTel'], $utilisateur['login']));
 }
 
 function ajouterAuPanier($login, $idRecette){

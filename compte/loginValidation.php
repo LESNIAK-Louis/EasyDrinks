@@ -16,10 +16,9 @@ require '../db.php';
 // Vérification du login
 if((isset($_POST['login']))) 
 { 
-    $login = strtolower(trim($_POST['login']));
+    $login = trim($_POST['login']);
 
-    if ((strlen($login)<2)  // le login est trop court
-    || !preg_match("/^[^\W]+\.?(?:[- ][^\W]+)*$/i", $login)) // lettres, chiffres, underscores, accents, points, espaces
+    if (strlen($login) > 100 || strlen($login) < 2 ||  !preg_match("/^[a-zA-Z0-9àâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý \-\_]+$/i", $login)) // lettres, chiffres, tirets, accents, espaces
     {
         $ChampsIncorrects=$ChampsIncorrects.'<li>login</li>';
         $ClassLogin='error';
@@ -29,11 +28,11 @@ if((isset($_POST['login'])))
 // Vérification du password
 if((isset($_POST['password'])))
 { 
-    $password = strtolower(trim($_POST['password']));
+    $password = trim($_POST['password']);
 
-    if (!preg_match("/^([^\W]|[!#$\*%{}\^&?\.\s-]){8}([^\W]|[!#$\*%{}\^&?\.\s-])*$/i", $password)) // lettres, chiffres, underscores, accents, points et caractères dans l'ensemble {!#$*%^&?.-} (8 caractères mini)
+    if (strlen($password) > 100 || strlen($password) < 8 || !preg_match("/^[a-zA-Z0-9àâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý \-\_!#$\*%{}\^&?\. ]+$/i", $password)) // lettres, chiffres, tirets, accents, points et caractères dans l'ensemble {!#$*%^&?.} (8 caractères mini)
     {
-        $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, underscores, accents, points et caractères dans l\'ensemble {!#$*%^&?.-})</li>';
+        $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, tirets, accents, points et caractères dans l\'ensemble {!#$*%^&?.})</li>';
         $ClassLogin='error';
     }
 }
