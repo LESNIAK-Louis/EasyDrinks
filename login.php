@@ -1,7 +1,7 @@
 <!DOCTYPE html>
  <html>
  <head>
-    <title>EasyDrinks - Compte</title>
+    <title>EasyDrinks - Connexion</title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" type="text/css" href="style.css" media="screen" />

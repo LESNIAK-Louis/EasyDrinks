@@ -79,6 +79,7 @@ function getPanier($login){
 
 try{
 
+    /*
     $utilisateur = array('login' => 'theo',
                          'mdp' => 'theo', 
                          'prenom' => 'Theo',
@@ -91,7 +92,6 @@ try{
                          'ville' => 'nancy',
                          'noTel' => '0123456789');
 
-    /*
     ajouterUtilisateur($pdo, $utilisateur);
     ajouterAuPanier($pdo, "theo", 5);
     ajouterAuPanier($pdo, "theo", 3);
