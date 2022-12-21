@@ -16,7 +16,7 @@
  </head>
  <body>
     <div class="header"> 
-        <a href="./" class="titre"> <h1> Easy Drinks </h1> </a>
+        <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         
     </div>
 
@@ -66,6 +66,8 @@
 
 <?php
 
+require 'db.php';
+
 /* Reprise de la correction, car mon ancien code était confu
    ce travail n'a PAS été réalisé par mes soins
 */
@@ -110,7 +112,15 @@
     // Login dans la bdd
     if($ChampsIncorrects=='')
     { 
-        echo 'Formulaire bien rempli';
+        if(tentativeConnexion($login, $password)){
+
+            echo 'Connexion réussie';
+
+        }else{
+            echo '
+                <br />
+                L\'utilisateur ou le mot de passe est incorrect';
+        }   
         exit;
     }
 }

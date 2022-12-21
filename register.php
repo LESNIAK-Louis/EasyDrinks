@@ -16,7 +16,7 @@
  </head>
  <body>
     <div class="header"> 
-        <a href="./" class="titre"> <h1> Easy Drinks </h1> </a>
+        <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
         
     </div>
 
@@ -138,6 +138,8 @@
 
 <?php
 
+require 'db.php';
+
 /* Reprise de la correction, car mon ancien code était confu
    ce travail n'a PAS été réalisé par mes soins
 */
@@ -168,7 +170,6 @@
     $ClassVille='ok';
     $ClassTel='ok';
     $ChampsIncorrects='';
-
 
     // Vérification du login
     if((isset($_POST['login']))) 
@@ -216,6 +217,18 @@
             $ChampsIncorrects=$ChampsIncorrects.'<li>prénom</li>';
             $ClassPrenom='error';
         }
+    }
+
+    // Vérification du sexe
+    if(isset($_POST['sexe']) && $_POST['sexe'] != '')
+    { 
+        $sexe=strtolower(trim($_POST['sexe'])); // suppression des espaces devant et derrière
+    }
+
+    // Vérification du mail
+    if(isset($_POST['email']) && $_POST['email'] != '')
+    { 
+        $email=strtolower(trim($_POST['email'])); // suppression des espaces devant et derrière
     }
 
 
@@ -280,7 +293,26 @@
     // Sauvegarde des données
     if($ChampsIncorrects=='')
     { 
-        echo 'Formulaire bien rempli';
+        $utilisateur = array(   'login' => $login,
+                                'mdp' => $password, 
+                                'prenom' => (isset($Prenom) ? $Prenom : null),
+                                'nom' => (isset($nom) ? $nom : null),
+                                'sexe' => (isset($sexe) ? $sexe : null),
+                                'email' => (isset($email) ? $email : null),
+                                'ddn' => (isset($Annee) && isset($Mois) && isset($Jour) ? $Annee.'-'.$Mois.'-'.$Jour : null),
+                                'adresse' => (isset($postal) ? $postal : null),
+                                'cp' => (isset($zip) ? $zip : null),
+                                'ville' => (isset($ville) ? $ville : null),
+                                'noTel' => (isset($tel) ? $tel : null));
+
+        try{
+            ajouterUtilisateur($utilisateur);
+            echo 'Formulaire bien rempli';
+        }catch(Exception $e){
+            if($e->getMessage() == '1062'){
+                echo 'Ce login existe déjà';
+            }
+        }
         exit;
     }
 }
