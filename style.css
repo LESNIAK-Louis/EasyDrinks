@@ -17,6 +17,11 @@ div.grid-container{
     background-color: blue;
 }
 
+.titre{
+    text-decoration: none;
+    color: black;
+}
+
 .topRight{
     float:right;
 }
