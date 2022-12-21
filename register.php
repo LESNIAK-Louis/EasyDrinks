@@ -173,10 +173,9 @@
     // Vérification du login
     if((isset($_POST['login']))) 
     { 
-        $login = strtolower(trim($_POST['login']));
+        $login = trim($_POST['login']);
 
-        if ((strlen($login)<2)  // le login est trop court
-        || !preg_match("/^[^\W]+\.?(?:[- ][^\W]+)*$/i", $login)) // lettres, chiffres, underscores, accents, points, espaces
+        if (strlen($login) > 100 || strlen($login) < 2 ||  !preg_match("/^[a-zA-Z0-9àâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý \-\_]+$/i", $login)) // lettres, chiffres, tirets, accents, espaces
         {
             $ChampsIncorrects=$ChampsIncorrects.'<li>login</li>';
             $ClassLogin='error';
@@ -186,11 +185,11 @@
     // Vérification du password
     if((isset($_POST['password'])))
     { 
-        $password = strtolower(trim($_POST['password']));
+        $password = trim($_POST['password']);
 
-        if (!preg_match("/^([^\W]|[!#$\*%{}\^&?\.\s-]){8}([^\W]|[!#$\*%{}\^&?\.\s-])*$/i", $password)) // lettres, chiffres, underscores, accents, points et caractères dans l'ensemble {!#$*%^&?.-} (8 caractères mini)
+        if (strlen($password) > 100 || strlen($password) < 8 || !preg_match("/^[a-zA-Z0-9àâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý \-\_!#$\*%{}\^&?\. ]+$/i", $password)) // lettres, chiffres, tirets, accents, points et caractères dans l'ensemble {!#$*%^&?.} (8 caractères mini)
         {
-            $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, underscores, accents, points et caractères dans l\'ensemble {!#$*%^&?.-})</li>';
+            $ChampsIncorrects=$ChampsIncorrects.'<li>mdp (8 caractères minimum composé de lettres, chiffres, tirets, accents, points et caractères dans l\'ensemble {!#$*%^&?.})</li>';
             $ClassLogin='error';
         }
     }
@@ -199,10 +198,9 @@
     // Vérification du nom
     if((isset($_POST['nom'])) && $_POST['nom'] != '')
     { 
-        $nom = strtolower(trim($_POST['nom']));
+        $nom = trim($_POST['nom']);
 
-        if ((strlen($nom)<2)  // le nom est trop court
-        || !preg_match("/^[^\W\d_]+\.?(?:[- ][^\W\d_]+\.?)*$/i", $nom)) // lettres, tirets, accents, espaces
+        if (strlen($nom) > 100 || strlen($nom) < 2 || !preg_match("/^[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý -]+$/i", $nom)) // lettres, accents, espaces, tiret du 6
         {
             $ChampsIncorrects=$ChampsIncorrects.'<li>nom</li>';
             $ClassNom='error';
@@ -212,8 +210,8 @@
     // Vérification du prenom 
     if(isset($_POST['prenom']) && $_POST['prenom'] != '')
     { 
-        $Prenom=strtolower(trim($_POST['prenom'])); // suppression des espaces devant et derrière
-        if(!preg_match("/^[^\W\d_]+?(?:[- ][^\W\d_]+\.?)*$/i", $Prenom)) // lettres, tirets, accents, espaces
+        $Prenom=trim($_POST['prenom']); // suppression des espaces devant et derrière
+        if (strlen($Prenom) > 100 || strlen($Prenom) < 2 || !preg_match("/^[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý -]+$/i", $nom)) // lettres, accents, espaces, tiret du 6
         {   
             $ChampsIncorrects=$ChampsIncorrects.'<li>prénom</li>';
             $ClassPrenom='error';
@@ -236,7 +234,7 @@
      if(isset($_POST['postal']) && $_POST['postal'] != '')
      { 
          $postal = strtolower(trim($_POST['postal']));
-         if(!preg_match("/^\d+([^\W\d_]|[\s])+\.?(?:[- ]([^\W\d_]|[\s])+\.?)*$/i", $postal)) // nombre suivis d'espaces, lettres, tirets, points, accents
+         if(strlen($postal) > 100 || strlen($postal) < 3 || !preg_match("/^\d+\s[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñý]+\.?(?:[- ][a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý]+\.?)*$/i", $postal)) // nombre suivis d'un espace, lettres, tirets (seulement entre deux mots), points (après un mot espace et un autre mot), accents
          {
              $ChampsIncorrects=$ChampsIncorrects.'<li>adresse postale</li>';
              $ClassPostal='error';
@@ -247,7 +245,7 @@
     if(isset($_POST['zip']) && $_POST['zip'] != '')
     { 
         $zip = trim($_POST['zip']);
-        if(!preg_match("/[0-9]+/i", $zip)) // que des chiffres (au moins 1)
+        if(strlen($zip) > 100 || strlen($zip) < 2 || !preg_match("/[0-9]+/i", $zip)) // que des chiffres (au moins 1)
         {
             $ChampsIncorrects=$ChampsIncorrects.'<li>code postal</li>';
             $ClassPostal='error';
@@ -258,7 +256,7 @@
     if(isset($_POST['ville']) && $_POST['ville'] != '')
     { 
         $ville = strtolower(trim($_POST['ville']));
-        if(!preg_match("/^[^\W\d_]+\.?(?:[-\s][^\W\d_]+\.?)*$/i", $ville)) // nombre suivis d'espaces, lettres, tirets, points, accents
+        if(strlen($ville) > 100 || strlen($ville) < 2 || !preg_match("/^[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý]+\.?(?:[- ][a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý]+\.?)*$/i", $ville)) // nombre suivis d'un espace, lettres, tirets (seulement entre deux mots), points (après un mot espace et un autre mot), accents
         {
             $ChampsIncorrects=$ChampsIncorrects.'<li>ville</li>';
             $ClassVille='error';
@@ -271,7 +269,7 @@
     { 
         $tel = strtolower(trim($_POST['telephone']));
 
-        if(!preg_match("/^[\+|0][0-9]+$/", $tel)) // Commence par + ou 0 et suivi de chiffres
+        if(strlen($tel) > 100 || strlen($tel) < 3 || !preg_match("/^[\+|0][0-9]+$/", $tel)) // Commence par + ou 0 et suivi de chiffres
         {
             $ChampsIncorrects=$ChampsIncorrects.'<li>téléphone</li>';
             $ClassTel = 'error';
