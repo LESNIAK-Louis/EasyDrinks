@@ -144,6 +144,7 @@ if(isset($_POST['telephone']) && $_POST['telephone'] != '')
 // Sauvegarde des données
 if($ChampsIncorrects=='')
 { 
+    $password = password_hash($password, PASSWORD_BCRYPT);
     $utilisateur = array(   'login' => $login,
                             'mdp' => $password, 
                             'prenom' => (isset($Prenom) ? $Prenom : null),

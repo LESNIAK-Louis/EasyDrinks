@@ -20,10 +20,17 @@ function tentativeConnexion($login, $mdp){
     $pdo = new PDO('mysql:host=127.0.0.1; dbname=projet;', 'root', '');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    $queryVerif = " SELECT mdp FROM utilisateur WHERE login = ?;";
+    $resultVerif = $pdo->prepare($queryVerif);
+    $resultVerif->execute(array($login));
+    $row = $resultVerif->fetch();
+    if(!password_verify($mdp, $row['mdp']))
+        return false;
+
     $query = "  SELECT * FROM utilisateur WHERE login = ? AND mdp = ?;";
     $result = $pdo->prepare($query);
 
-    $result->execute(array($login, $mdp));
+    $result->execute(array($login, $row['mdp']));
     return ($result->rowCount() == 1);
 }
 
