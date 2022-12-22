@@ -44,7 +44,7 @@ div.grid-container{
 .menu{
     grid-area: menu;
     background-color: #f1ebe3;
-    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), 12px 0 15px -4px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), 8px 0 15px -4px rgba(0, 0, 0, 0.20);
     z-index: 1;
 }
 
@@ -202,7 +202,7 @@ ul.navigation li > a {
 .right{
     grid-area: right;
     background-color: #f1ebe3;
-    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), -12px 0 15px -4px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), -8px 0 15px -4px rgba(0, 0, 0, 0.20);
     z-index: 1;
 }
 
