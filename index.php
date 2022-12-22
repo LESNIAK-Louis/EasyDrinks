@@ -18,7 +18,7 @@
 
         $(document).ready(function(){
 
-            $(document).on('click', '.boutonMenu', function(){
+            $(document).on('click', '.categorie', function(){
                 $('.containerRecettes').show();
                 $('.contenuRecette').hide();
                 mettreAJourCategories($(this).text(), histo);
@@ -65,7 +65,7 @@
             });
 
             $(document).on('click', '#ajouterIngredient', function(){
-                let ing = ucfirst($('#champRecherche').val());
+                let ing = $('#champRecherche').val();
                 if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
                     ingredients.push(ing);
                     mettreAJourIngredients(ingredients);
@@ -75,7 +75,7 @@
             });
 
             $(document).on('click', '#ajouterPasIngredient', function(){
-                let ing = ucfirst($('#champRecherche').val());
+                let ing = $('#champRecherche').val();
                 if(!ingredients.includes(ing) && !ingredients.includes("Sans " + ing)){
                     ingredients.push("Sans " + ing);
                     mettreAJourIngredients(ingredients);
@@ -85,7 +85,7 @@
             });
 
             $(document).on('click', '.retirerIngredient', function(){
-                let ing = $(this).siblings('p').text();
+                let ing = $(this).siblings('span').text();
                 if(ingredients.includes(ing)){
                     let index = ingredients.indexOf(ing);
                     ingredients.splice(index, 1);
@@ -124,7 +124,7 @@
 
         <div class="menu">
             
-
+            <div id="titreMenu">Catégories</div>
             <div class="listeCategories">
                 <div class="categorie">
                     <a class="boutonMenu" href="#">Aliment</a>
@@ -142,6 +142,7 @@
         </div>
 
         <div class="right">
+            <div id="titreRight">Recherche</div>
             <form class="rechercheTexte" autocomplete="off">
                 <div class="autocomplete">
                     <input type="text" id="champRecherche">

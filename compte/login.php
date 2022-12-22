@@ -49,49 +49,51 @@
 
  </head>
  <body>
-    <div class="header"> 
-        <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
-        
-    </div>
+    <div class="grid-container">
+        <div class="header"> 
+            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+            
+        </div>
 
 
-    <div class="menu">
+        <div class="menu">
 
-    </div>
+        </div>
 
 
-    <div class="main">
-        <h1>S'identifier</h1>
+        <div class="main">
+            <h1>S'identifier</h1>
 
-        <form id="formLogin" >
-            <fieldset>
-            <legend>Informations personnelles</legend>
+            <form id="formLogin" >
+                <fieldset>
+                <legend>Informations personnelles</legend>
 
-            Login : 
-            <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
-            required="required" />
+                Login : 
+                <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
+                required="required" />
 
+                <br/>
+
+                Mot de passe (8 caractères minimum) :
+                <input type="password" id="pass"
+                class="<?php echo $ClassMdp; ?>"
+                value=""
+                minlength="8" 
+                required="required" />
+
+            </fieldset>
             <br/>
+            </form>
+            <button id='valider'>Valider</button>
+            <a href="register.php">S'enregistrer</a>
+        </div>
 
-            Mot de passe (8 caractères minimum) :
-            <input type="password" id="pass"
-            class="<?php echo $ClassMdp; ?>"
-            value=""
-            minlength="8" 
-            required="required" />
+        <div class="right">
 
-        </fieldset>
-        <br/>
-        </form>
-        <button id='valider'>Valider</button>
-        <a href="register.php">S'enregistrer</a>
-    </div>
+        </div>
 
-    <div class="right">
-
-    </div>
-
-    <div class="footer">
+        <div class="footer">
+        </div>
     </div>
 </body>
 </html>

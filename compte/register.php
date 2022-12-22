@@ -60,112 +60,114 @@
     </script>
  </head>
  <body>
-    <div class="header"> 
-        <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
-        
-    </div>
+    <div class="grid-container">
+        <div class="header"> 
+            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+            
+        </div>
 
 
-    <div class="menu">
+        <div class="menu">
 
-    </div>
+        </div>
 
 
-    <div class="main">
-        <h1>S'enregistrer</h1>
+        <div class="main">
+            <h1>S'enregistrer</h1>
 
-        <form id="formRegister">
-            <fieldset>
-            <legend>Informations personnelles</legend>
+            <form id="formRegister">
+                <fieldset>
+                <legend>Informations personnelles</legend>
 
-            Login : 
-            <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
-            required="required" />
+                Login : 
+                <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
+                required="required" />
 
-            <br/>
+                <br/>
 
-            Mot de passe (8 caractères minimum) :
-            <input type="password" id="pass"
-            class="<?php echo $ClassMdp; ?>"
-            value=""
-            minlength="8" 
-            required="required" />
+                Mot de passe (8 caractères minimum) :
+                <input type="password" id="pass"
+                class="<?php echo $ClassMdp; ?>"
+                value=""
+                minlength="8" 
+                required="required" />
 
-            <br/>
+                <br/>
 
-            Sexe :
-            <span class="<?php echo $ClassSexe; ?>">
-                <input id="sexe" type="radio" value="f"
-                /> femme
-                <input id="sexe" type="radio" value="h"
-                /> homme
-            </span>
+                Sexe :
+                <span class="<?php echo $ClassSexe; ?>">
+                    <input id="sexe" type="radio" value="f"
+                    /> femme
+                    <input id="sexe" type="radio" value="h"
+                    /> homme
+                </span>
 
-            <br/>
+                <br/>
 
-            Nom :
-            <input id="nom" type="text" class="<?php echo $ClassNom; ?>"
-            placeholder="DUPONT">
+                Nom :
+                <input id="nom" type="text" class="<?php echo $ClassNom; ?>"
+                placeholder="DUPONT">
 
-            <br/>
+                <br/>
 
-            Prénom :
-            <input id="prenom" type="text" class="<?php echo $ClassPrenom; ?>"
-            placeholder="Jean"/>
+                Prénom :
+                <input id="prenom" type="text" class="<?php echo $ClassPrenom; ?>"
+                placeholder="Jean"/>
 
+                <br/>
+                
+                Adresse Electronique :
+                <input id="email" type="email" class="<?php echo $ClassEmail; ?>"
+                placeholder="jean.dupont@email.com"
+                />
+                
+                <br/>
+
+                Date de naissance :
+                <input id="ddn" type="date" class="<?php echo $ClassNaissance; ?>"/>
+
+                <br/>
+
+                Adresse Postale (numéro + rue) :
+                <input id="postal" type="text"
+                class="<?php echo $ClassPostal; ?>"
+                placeholder="10 rue jean moulin"/>
+                
+                <br/>
+
+                Code postal :
+                <input id="zip" type="text" inputmode="numeric" 
+                class="<?php echo $ClassZip; ?>"
+                placeholder="54500"/>
+                
+                <br/>
+
+                Ville :
+                <input id="ville" type="text"
+                class="<?php echo $ClassVille; ?>"
+                placeholder="Vandoeuvre-Lès-Nancy"/>
+                
+                <br/>
+
+                Téléphone :
+                <input id="telephone" type="tel"
+                class="<?php echo $ClassTel; ?>"
+                placeholder="+33000000000"/>
+
+            
+            </fieldset>
             <br/>
             
-            Adresse Electronique :
-            <input id="email" type="email" class="<?php echo $ClassEmail; ?>"
-            placeholder="jean.dupont@email.com"
-            />
-            
-            <br/>
+            </form>
+            <button id='valider'>Valider</button>
+        </div>
 
-            Date de naissance :
-            <input id="ddn" type="date" class="<?php echo $ClassNaissance; ?>"/>
+        <div class="right">
 
-            <br/>
+        </div>
 
-            Adresse Postale (numéro + rue) :
-            <input id="postal" type="text"
-            class="<?php echo $ClassPostal; ?>"
-            placeholder="10 rue jean moulin"/>
-            
-            <br/>
-
-            Code postal :
-            <input id="zip" type="text" inputmode="numeric" 
-            class="<?php echo $ClassZip; ?>"
-            placeholder="54500"/>
-            
-            <br/>
-
-            Ville :
-            <input id="ville" type="text"
-            class="<?php echo $ClassVille; ?>"
-            placeholder="Vandoeuvre-Lès-Nancy"/>
-            
-            <br/>
-
-            Téléphone :
-            <input id="telephone" type="tel"
-            class="<?php echo $ClassTel; ?>"
-            placeholder="+33000000000"/>
-
-        
-        </fieldset>
-        <br/>
-        
-        </form>
-        <button id='valider'>Valider</button>
-    </div>
-
-    <div class="right">
-
-    </div>
-
-    <div class="footer">
+        <div class="footer">
+        </div>
     </div>
 </body>
 </html>

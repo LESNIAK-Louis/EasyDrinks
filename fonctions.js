@@ -2,7 +2,7 @@ function mettreAJourAffichage(categorie, histo){
     $('.listeCategories').empty();
     $('.navigation').empty();
     jQuery.each(categorie, function(index, value){
-        $('.listeCategories').append("<div class='categorie'> <a class='boutonMenu' href='#'>" + value + "</a> </div>");
+        $('.listeCategories').append("<div class='categorie'>" + value + "</div>");
         
     });
     histo.forEach(function(item, index, histo){
@@ -41,7 +41,7 @@ function mettreAJourHistorique(categorieActuelle, histo){
 function mettreAJourIngredients(ingredients){
     $('.listeIngredients').empty()
     ingredients.forEach(function(item, index, ingredients){
-        $('.listeIngredients').append("<div class='ingredientItem'><button class='retirerIngredient'>X</button><p>" + item + "</p></div>");
+        $('.listeIngredients').append("<div class='ingredientItem'><button class='retirerIngredient'>X</button><span class='texteIngredient'>" + item + "</span></div>");
     });
     if(ingredients.length == 0){
         $('.listeIngredients').append("<p>Aucun ingrédient sélectionné</p>");
@@ -72,10 +72,41 @@ function afficherRecette(recetteActuelle){
             $('.contenuRecette').show();
             $('.contenuRecette').empty();
 
-            $('.contenuRecette').append( '<h1>' + res.titre + '</h1>' + '<br>'); // Titre
+            var contenu = '<div class="detailsRecette1">' +
+                            '<h1 class="titreDetailsRecette">' + res.titre + '</h1>' + '<br>' +
+                            res.image +
+                            '</div>' +
+                            '<div class="detailsRecette2">' +
+                            '<h2>' + 'Liste des ingrédients' + '</h2>' + '<br>' +
+                            '<ul class =\'ulIngredients\' ></ul>';
+
+            var ingredients = res.ingredients.split('|');
+            for (let i = 0; i < ingredients.length; ++i) {
+                contenu += '<li>' + ingredients[i] + '</li>';
+            }
+
+            contenu += '</div>' +
+                        '<div class="detailsRecette3">' +
+                        '<h2>' + 'Préparation' + '</h2>' + '<br>' +
+                        '<ol class=\'olPreparation\'></ol>';
+            
+            var preparation = res.preparation.split(/[.!]/);
+            for (let i = 0; i < preparation.length; ++i) {
+                if(preparation[i] != '')
+                    contenu += '<li>' + preparation[i] + '</li>';
+            }
+
+            contenu += '</div>';
+
+            $('.contenuRecette').append(contenu);
+
+            /*
+            $('.contenuRecette').append('<div class="detailsRecette1">');
+            $('.contenuRecette').append('<h1 class="titreDetailsRecette">' + res.titre + '</h1>' + '<br>'); // Titre
 
             $('.contenuRecette').append(res.image); // Image
-
+            $('.contenuRecette').append('</div>');
+            $('.contenuRecette').append('<div class="detailsRecette2">');
             // Ingrédients
             $('.contenuRecette').append('<h2>' + 'Liste des ingrédients' + '</h2>' + '<br>' +
             '<ul class =\'ulIngredients\' ></ul>'
@@ -84,8 +115,9 @@ function afficherRecette(recetteActuelle){
             for (let i = 0; i < ingredients.length; ++i) {
                 $('.ulIngredients').append('<li>' + ingredients[i] + '</li>');
             }
-
+            $('.contenuRecette').append('</div>');
             // Préparation
+            $('.contenuRecette').append('<div class="detailsRecette3">');
             $('.contenuRecette').append(
                 '<h2>' + 'Préparation' + '</h2>' + '<br>' +
                 '<ol class=\'olPreparation\'></ol>'
@@ -95,7 +127,8 @@ function afficherRecette(recetteActuelle){
                 if(preparation[i] != '')
                     $('.olPreparation').append('<li>' + preparation[i] + '</li>');
             }
-           
+            $('.contenuRecette').append('</div>');
+           */
         } 
     });
 }

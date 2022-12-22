@@ -13,7 +13,6 @@ div.grid-container{
         'menu main main right'
         'footer footer footer footer';
     gap: 10px;
-    padding: 10px;
 }
 
             /* HEADER */
@@ -22,6 +21,8 @@ div.grid-container{
     grid-area: header;
     text-align: center;
     background-color: white;
+    border-bottom : 3px solid black;
+    margin-bottom:10px;
 }
 
 .titre{
@@ -42,27 +43,44 @@ div.grid-container{
 
 .menu{
     grid-area: menu;
-    background-color: white;
+    background-color: #f1ebe3;
     box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), 12px 0 15px -4px rgba(0, 0, 0, 0.20);
     z-index: 1;
+}
+
+#titreMenu {
+    
+    text-align: center;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+    margin: -5px 15px 5px 15px;
+    background-color:white;
+    padding: 8px 0 8px 0;
+    color: black;
+    font-weight: bold;
+    border-top: 3px solid black;
+    font-size: 20px;
 }
 
 div.listeCategories{
 }
 
 div.categorie{
+    background-color: white;
     padding-top: 20px;
     padding-bottom: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0 20px 15px;
     padding-left: 10px;  
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
-}
-
-div.categorie > a{
     text-decoration: none;
     color: black;
     font-weight: bold;
+    cursor: pointer;
+    border-left : 5px solid #6fc278;
+    border-bottom : 3px solid transparent;
+}
+
+div.categorie:hover{
+    border-bottom : 3px solid black;
 }
 
             /* MAIN */
@@ -87,6 +105,11 @@ div.boiteRecette{
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
     text-align: center; 
     cursor: pointer;
+    border-bottom: 3px solid transparent;
+}
+
+div.boiteRecette:hover{
+    border-bottom : 3px solid black;
 }
 
 .titreRecette{
@@ -111,9 +134,40 @@ img.imageFavRecette{
 }
 
 div.contenuRecette{
-    font-size: medium;
-    text-align: center;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
 }
+
+div.contenuRecette > *{
+    
+    flex: 1 1 40%;
+    text-align: center;
+    padding: 20px;
+}
+
+.titreDetailsRecette{
+
+    
+}
+
+.detailsRecette1{
+
+    border-right: 3px dashed gray;
+}
+
+.detailsRecette2{
+
+}
+
+.detailsRecette3{
+
+    border-top: 3px dashed gray;
+}
+
 
 ul.navigation {
     padding: 10px 16px;
@@ -127,8 +181,14 @@ ul.navigation {
 ul.navigation li {
     display: inline;
     font-size: 16px;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25), 0 10px 10px 0 rgba(0, 0, 0, 0.20);
     padding: 5px;
+    border-top : 3px solid transparent;
+    border-bottom : 3px solid transparent;
+}
+
+ul.navigation li:hover{
+    border-bottom : 3px solid black;
 }
 
 ul.navigation li > a {
@@ -141,9 +201,22 @@ ul.navigation li > a {
 
 .right{
     grid-area: right;
-    background-color: white;
+    background-color: #f1ebe3;
     box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), -12px 0 15px -4px rgba(0, 0, 0, 0.20);
     z-index: 1;
+}
+
+#titreRight{
+    
+    text-align: center;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+    margin: -5px 15px 5px 15px;
+    background-color:white;
+    padding: 8px 0 8px 0;
+    color: black;
+    font-weight: bold;
+    border-top: 3px solid black;
+    font-size: 20px;
 }
 
 
@@ -151,21 +224,58 @@ div.listeIngredients{
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+}
+
+div.listeIngredients > p{
+    font-weight: bold;
 }
 
 #boutonRechercheRecette{
     position: relative;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
+    margin: 20px 0px 5px 15px;
+    width: inherit;
 }
 
 .ingredientItem{
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    font-weight: bold;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.20);
+    padding: 5px 10px 5px 10px;
+    margin: 20px 0px 5px 15px;
+}
+
+button {
+
+    background-color: white;
+    border : 2px solid black;
+    min-width: 25px;
+    min-height: 25px;
+}
+
+button:hover{
+
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.retirerIngredient{
+
+    position: relative;
+    top: 50%;
+    float:left;
+    background-color: white;
+}
+
+.retirerIngredient:hover{
+
+    position: relative;
+    top: 50%;
+    float:left;
+    background-color: lightgray;
+    cursor: pointer;
 }
 
 form.rechercheTexte{
@@ -177,7 +287,12 @@ form.rechercheTexte{
 }
 
 .autocomplete{
-    min-width: 50px;
+
+    align-self:center;
+}
+
+.autocomplete{
+    width: inherit;
     position: relative;
     display: inline-block;
 }
@@ -193,7 +308,7 @@ form.rechercheTexte{
     right: 0;
     padding: 5px;
     cursor: pointer;
-    max-width: 100%;
+    width: inherit;
 }
 
 .autocomplete-items:hover {
