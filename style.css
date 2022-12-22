@@ -1,6 +1,13 @@
+body {
+
+    font-family: arial;
+    text-decoration: none;
+    color: black;
+}
+
 div.grid-container{
     display: grid;
-    grid-template-columns: 200px auto auto 200px;
+    grid-template-columns: 200px auto auto 250px;
     grid-template-areas:
         'header header header header'
         'menu main main right'
@@ -14,7 +21,7 @@ div.grid-container{
 .header{
     grid-area: header;
     text-align: center;
-    background-color: blue;
+    background-color: white;
 }
 
 .titre{
@@ -35,7 +42,9 @@ div.grid-container{
 
 .menu{
     grid-area: menu;
-    background-color: yellow;
+    background-color: white;
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), 12px 0 15px -4px rgba(0, 0, 0, 0.20);
+    z-index: 1;
 }
 
 div.listeCategories{
@@ -50,27 +59,120 @@ div.categorie{
     box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
 }
 
+div.categorie > a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+            /* MAIN */
+
+.main{
+    grid-area: main;
+    background-color: white;
+}
+
+div.containerRecettes{
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 25px 10px;
+}
+
+div.boiteRecette{
+    cursor:pointer;
+    width: 250px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+    text-align: center; 
+    cursor: pointer;
+}
+
+.titreRecette{
+    font-weight: bold;
+    padding: 5px;
+}
+
+p.separateurResultat{
+    flex: 0 0 100%;
+}
+
+img.imageRecette{
+    width: inherit;
+    height: 200px; 
+}
+
+img.imageFavRecette{
+    float:right;
+
+    width: 25px;
+    height: 25px;
+}
+
+div.contenuRecette{
+    font-size: medium;
+    text-align: center;
+}
+
 ul.navigation {
     padding: 10px 16px;
-    background-color: #eee;
+    background-color: white;
     grid-area: menu;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
 }
   
 ul.navigation li {
     display: inline;
     font-size: 16px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.20);
+    padding: 5px;
 }
 
-ul.navigation li+li:before {
-    padding: 8px;
+ul.navigation li > a {
+    text-decoration: none;
     color: black;
-    content: "/\00a0";
+    font-weight: bold;
+}
+
+            /* RIGHT */
+
+.right{
+    grid-area: right;
+    background-color: white;
+    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), -12px 0 15px -4px rgba(0, 0, 0, 0.20);
+    z-index: 1;
+}
+
+
+div.listeIngredients{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#boutonRechercheRecette{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.ingredientItem{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
 
 form.rechercheTexte{
     padding-top: 25px;
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     align-items: flex-start;
 }
 
@@ -96,64 +198,6 @@ form.rechercheTexte{
 
 .autocomplete-items:hover {
     background-color: #e9e9e9;
-}
-
-            /* MAIN */
-
-.main{
-    grid-area: main;
-    background-color: green;
-}
-
-div.containerRecettes{
-    padding: 8px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 25px 10px;
-}
-
-div.boiteRecette{
-    cursor:pointer;
-    width: 250px;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
-    text-align: center; 
-    cursor: pointer;
-}
-
-p.separateurResultat{
-    flex: 0 0 100%;
-}
-
-img.imageRecette{
-    width: inherit;
-    height: 200px; 
-}
-
-img.imageFavRecette{
-    float:right;
-
-    width: 25px;
-    height: 25px;
-}
-
-div.contenuRecette{
-    font-size: medium;
-    text-align: center;
-}
-
-            /* RIGHT */
-
-.right{
-    grid-area: right;
-    background-color: pink;
-}
-
-
-div.listeIngredients{
-    border: 1px solid black;
-    text-align: center;
 }
 
 
