@@ -63,7 +63,7 @@ if((isset($_POST['nom'])) && $_POST['nom'] != '')
 if(isset($_POST['prenom']) && $_POST['prenom'] != '')
 { 
     $Prenom=trim($_POST['prenom']); // suppression des espaces devant et derrière
-    if (strlen($Prenom) > 100 || strlen($Prenom) < 2 || !preg_match("/^[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý -]+$/i", $nom)) // lettres, accents, espaces, tiret du 6
+    if (strlen($Prenom) > 100 || strlen($Prenom) < 2 || !preg_match("/^[a-zA-ZàâáçéèèêëìîíïôòóùûüÂÊÎÔúÛÄËÏÖÜÀÆæÇÉÈŒœÙñÿý -]+$/i", $Prenom)) // lettres, accents, espaces, tiret du 6
     {   
         $ChampsIncorrects=$ChampsIncorrects.'<li>prénom</li>';
         $ClassPrenom='error';
