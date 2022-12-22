@@ -61,11 +61,10 @@ function mettreAJourRecettes(categorieActuelle){
     });
 }
 
-function afficherRecette(recetteActuelle, path){
-    $.post(path + "detailRecette.php", 
+function afficherRecette(recetteActuelle){
+    $.post("detailRecette.php", 
     {
         current: recetteActuelle,
-        pathImg: path
     }, function(data, status){
         const res = JSON.parse(data);
         if(!res.error){
@@ -107,7 +106,7 @@ function selectSuggestion(val) {
 }
 
 function effectuerRecherche(liste, histo){
-    $.post("navigation/recherche.php", 
+    $.post("recherche.php", 
         {
             recherche: liste
         }, function(data, status){

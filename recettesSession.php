@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../fonctions.php';
-require '../Donnees.inc.php';
+require 'fonctions.php';
+require 'Donnees.inc.php';
 
     if(isset($_SESSION['favoris'])){
         $toDisplay = array();
@@ -11,7 +11,7 @@ require '../Donnees.inc.php';
             $toDisplay[] = $Recettes[$fav];
         }
    
-        $resultat = displayRecettes($toDisplay, '../');
+        $resultat = displayRecettes($toDisplay);
         echo $resultat;
     }
     else{

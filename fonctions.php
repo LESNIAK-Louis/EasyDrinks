@@ -67,7 +67,7 @@ function getRecetteId($titre){
     }
 }
 
-function displayRecettes($display, $path)
+function displayRecettes($display)
 {
     require 'Donnees.inc.php';
 
@@ -85,8 +85,8 @@ function displayRecettes($display, $path)
 
 
         $resultat .= '<div class="boiteRecette">'.
-                '<img src="'.$path.'img/'.$imgFav.'" alt="Image Favori Recette" class="imageFavRecette">'
-                .getImage($recette, $path).'
+                '<img src="img/'.$imgFav.'" alt="Image Favori Recette" class="imageFavRecette">'
+                .getImage($recette).'
                 <div class="boiteTitreRecette">
                     <p class="titreRecette">'.$recette['titre'].'</p>
                 </div>
@@ -102,7 +102,7 @@ function displayResultatRecherche($resultatRecherche, $totalCriteres){
     foreach($resultatRecherche as $nbCriteres => $recettes){
 
         $resultat .= '<p class="separateurResultat"> Résultats qui satisfont '.$nbCriteres.' critère'.($nbCriteres > 1 ? 's' : '').' sur '.$totalCriteres.': </p>';
-        $resultat .= displayRecettes($recettes, '');
+        $resultat .= displayRecettes($recettes);
     }
 
     if(count($resultatRecherche) == 0){
@@ -111,7 +111,7 @@ function displayResultatRecherche($resultatRecherche, $totalCriteres){
     return $resultat;
 }
 
-function getImage($recette, $path){
+function getImage($recette){
     $unwanted_array = array(    'Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
     'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
     'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'ç'=>'c',
@@ -121,7 +121,7 @@ function getImage($recette, $path){
 
     $sansAccents = strtr($recette['titre'], $unwanted_array);
     $nomBoisson = ucwords(strtolower($sansAccents));
-    $img = '<img src="'.(file_exists($path.'Photos/'.$nomBoisson.'.jpg') ? $path.'Photos/'.$nomBoisson : $path.'img/Notfound').'.jpg" alt="'.$nomBoisson.'" class="imageRecette">';
+    $img = '<img src="'.(file_exists('Photos/'.$nomBoisson.'.jpg') ? 'Photos/'.$nomBoisson : 'img/Notfound').'.jpg" alt="'.$nomBoisson.'" class="imageRecette">';
     return $img;
 }
 
