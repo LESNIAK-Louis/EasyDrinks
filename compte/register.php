@@ -22,6 +22,11 @@
         
         let mdp = '';
     
+        function retourAccueil(){
+
+            $(location).prop('href', '../index.php?#');
+        }
+
         function sendData() {
             $.post("registerValidation.php", 
             {
@@ -48,7 +53,7 @@
         }
 
         $(document).ready(function(){
-            $(document).on('click', '#valider', function(){
+            $(document).on('click', '.valider', function(){
                 sendData();
             });
 
@@ -61,8 +66,7 @@
  </head>
  <body>
     <div class="grid-container">
-        <div class="header"> 
-            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <div class="header" onClick="retourAccueil()"> 
             
         </div>
 
@@ -73,93 +77,73 @@
 
 
         <div class="main">
-            <h1>S'enregistrer</h1>
+            <h1 class="sousTitre">S'enregistrer</h1>
 
-            <form id="formRegister">
-                <fieldset>
-                <legend>Informations personnelles</legend>
+            <div class="parentFormulaire">
+                <form id="formRegister" class="formulaire">
 
-                Login : 
-                <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
-                required="required" />
+                    <div class="itemFormulaire">
+                        <span>Login :</span>
+                        <input id="login" type="text" required="required" />
+                    </div>
 
-                <br/>
+                    <div class="itemFormulaire">
+                        <span>Mot de passe (8 caractères minimum) :</span>
+                        <input type="password" id="pass" minlength="8"  required="required" />
+                    </div>
 
-                Mot de passe (8 caractères minimum) :
-                <input type="password" id="pass"
-                class="<?php echo $ClassMdp; ?>"
-                value=""
-                minlength="8" 
-                required="required" />
+                    <div class="itemFormulaire">
+                        <span>Sexe :</span>
+                        <span class="radio">
+                            <input id="sexe" type="radio" value="f"/>Femme
+                            <input id="sexe" type="radio" value="h"/>Homme
+                        </span>
+                    </div>
 
-                <br/>
+                    <div class="itemFormulaire">
+                        <span>Nom :</span>
+                        <input id="nom" type="text" placeholder="DUPONT">
+                    </div>
 
-                Sexe :
-                <span class="<?php echo $ClassSexe; ?>">
-                    <input id="sexe" type="radio" value="f"
-                    /> femme
-                    <input id="sexe" type="radio" value="h"
-                    /> homme
-                </span>
 
-                <br/>
+                    <div class="itemFormulaire">
+                        <span>Prénom :</span>
+                        <input id="prenom" type="text" placeholder="Jean"/>
+                    </div>
 
-                Nom :
-                <input id="nom" type="text" class="<?php echo $ClassNom; ?>"
-                placeholder="DUPONT">
+                    <div class="itemFormulaire">
+                        <span>Adresse Electronique :</span>
+                        <input id="email" type="email" placeholder="jean.dupont@email.com"/>
+                    </div>
 
-                <br/>
+                    <div class="itemFormulaire">
+                        <span>Date de naissance :</span>
+                        <input id="ddn" type="date"/>
+                    </div>
 
-                Prénom :
-                <input id="prenom" type="text" class="<?php echo $ClassPrenom; ?>"
-                placeholder="Jean"/>
+                    <div class="itemFormulaire">
+                        <span>Adresse Postale (numéro + rue) :</span>
+                        <input id="postal" type="text" placeholder="10 rue Jean Moulin"/>
+                    </div>
 
-                <br/>
+                    <div class="itemFormulaire">
+                        <span>Code postal :</span>
+                        <input id="zip" type="text" inputmode="numeric" placeholder="54500"/>
+                    </div>
+
+                    <div class="itemFormulaire">
+                        <span>Ville :</span>
+                        <input id="ville" type="text" placeholder="Vandoeuvre-Lès-Nancy"/>
+                    </div>
+
+                    <div class="itemFormulaire">
+                        <span>Téléphone :</span>
+                        <input id="telephone" type="tel" placeholder="+33000000000"/>
+                    </div>
                 
-                Adresse Electronique :
-                <input id="email" type="email" class="<?php echo $ClassEmail; ?>"
-                placeholder="jean.dupont@email.com"
-                />
-                
-                <br/>
-
-                Date de naissance :
-                <input id="ddn" type="date" class="<?php echo $ClassNaissance; ?>"/>
-
-                <br/>
-
-                Adresse Postale (numéro + rue) :
-                <input id="postal" type="text"
-                class="<?php echo $ClassPostal; ?>"
-                placeholder="10 rue jean moulin"/>
-                
-                <br/>
-
-                Code postal :
-                <input id="zip" type="text" inputmode="numeric" 
-                class="<?php echo $ClassZip; ?>"
-                placeholder="54500"/>
-                
-                <br/>
-
-                Ville :
-                <input id="ville" type="text"
-                class="<?php echo $ClassVille; ?>"
-                placeholder="Vandoeuvre-Lès-Nancy"/>
-                
-                <br/>
-
-                Téléphone :
-                <input id="telephone" type="tel"
-                class="<?php echo $ClassTel; ?>"
-                placeholder="+33000000000"/>
-
-            
-            </fieldset>
-            <br/>
-            
-            </form>
-            <button id='valider'>Valider</button>
+                </form>
+                <button class='valider'>Valider</button>
+            </div>
         </div>
 
         <div class="right">

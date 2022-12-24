@@ -13,6 +13,11 @@
         
         let mdp = '';
     
+        function retourAccueil(){
+
+            $(location).prop('href', '../index.php?#');
+        }
+
         function sendData() {
             $.post("modifierValidation.php", 
             {
@@ -38,7 +43,7 @@
         }
 
         $(document).ready(function(){
-            $(document).on('click', '#valider', function(){
+            $(document).on('click', '.valider', function(){
                 sendData();
             });
 
@@ -51,8 +56,7 @@
  </head>
  <body>
     <div class="grid-container">
-        <div class="header"> 
-            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <div class="header" onClick="retourAccueil()"> 
             
         </div>
 
@@ -63,96 +67,97 @@
 
 
         <div class="main">
-            <h1>Modifier les informations du compte</h1>
+            <h1 class="sousTitre">Modifier les informations du compte</h1>
 
-            <form id="formRegister">
-                <fieldset>
-                <legend>Informations personnelles</legend>
+            <div class="parentFormulaire">
+                <form id="formModifier" class="formulaire">
 
+                    <?php
+                    require '../db.php';
 
-                <?php
-                require '../db.php';
+                    if(isset($_SESSION['login'])){
 
-                if(isset($_SESSION['login'])){
+                        $login = $_SESSION['login'];
 
-                    $login = $_SESSION['login'];
+                        $utilisateur = getUtilisateur($login);
 
-                    $utilisateur = getUtilisateur($login);
+                        $ddn = '';
 
-                    $ddn = '';
+                        if(isset($utilisateur['ddn'])){
+                            list($Annee,$Mois,$Jour) = explode('-',$utilisateur['ddn']);
+                            $ddn = $Jour.'/'.$Mois.'/'.$Annee;
+                        }
 
-                    if(isset($utilisateur['ddn'])){
-                        list($Annee,$Mois,$Jour) = explode('-',$utilisateur['ddn']);
-                        $ddn = $Jour.'/'.$Mois.'/'.$Annee;
+                        echo '
+                            <div class="itemFormulaire">
+                                <span id="login">'.(isset($utilisateur['login']) ? $utilisateur['login'] : '').'</span>
+                            </div>
+            
+                            <div class="itemFormulaire">
+                                <span>Sexe :</span>
+                                <span class="radio">
+                                    <input id="sexe" type="radio" value="f"'.(isset($utilisateur['sexe']) && $utilisateur['sexe'] == 'f' ? 'checked="checked"' : '').' 
+                                    /> femme
+                                    <input id="sexe" type="radio" value="h"'.(isset($utilisateur['sexe']) && $utilisateur['sexe'] == 'h' ? 'checked="checked"' : '').' 
+                                    /> homme
+                                </span>
+                            </div>
+
+                            <div class="itemFormulaire">
+                                <span>Nom :</span>
+                                <input id="nom"
+                                value="'.(isset($utilisateur['nom']) ? $utilisateur['nom'] : '').'"/>
+                            </div>
+
+                            <div class="itemFormulaire">
+                                <span>Prénom :</span>
+                                <input id="prenom" type="text"
+                                value="'.(isset($utilisateur['prenom']) ? $utilisateur['prenom'] : '').'"/>
+                            </div>
+     
+                            <div class="itemFormulaire">
+                                <span>Adresse Electronique :</span>
+                                <input id="email" type="email"
+                                value="'.(isset($utilisateur['email']) ? $utilisateur['email'] : '').'"/>
+                            </div>
+
+                            <div class="itemFormulaire">
+                                <span>Date de naissance :</span>
+                                <input id="ddn" type="date" value="'.(isset($utilisateur['ddn']) ? $utilisateur['ddn'] : '').'"/>
+                            </div>
+
+                            <div class="itemFormulaire">
+                                <span>Adresse Postale (numéro + rue) :</span>
+                                <input id="postal" type="text"
+                                value="'.(isset($utilisateur['adresse']) ? $utilisateur['adresse'] : '').'"/>
+                            </div> 
+
+                            <div class="itemFormulaire">
+                                <span>Code postal :</span>
+                                <input id="zip" type="text" inputmode="numeric"
+                                value="'.(isset($utilisateur['cp']) ? $utilisateur['cp'] : '').'"/>
+                            </div>    
+
+                            <div class="itemFormulaire">
+                                <span>Ville :</span>
+                                <input id="ville" type="text"
+                                value="'.(isset($utilisateur['ville']) ? $utilisateur['ville'] : '').'"/>
+                            </div>
+
+                            <div class="itemFormulaire">
+                                <span>Téléphone :</span>
+                                <input id="telephone" type="tel"
+                                value="'.(isset($utilisateur['noTel']) ? $utilisateur['noTel'] : '').'"/>
+                            </div>';
                     }
-
-                    echo '
-                            Login : <span id="login">'.(isset($utilisateur['login']) ? $utilisateur['login'] : '').'</span>
-
-                            <br/>
-
-                            Sexe :
-                            <span>
-                                <input id="sexe" type="radio" value="f"'.(isset($utilisateur['sexe']) && $utilisateur['sexe'] == 'f' ? 'checked="checked"' : '').' 
-                                /> femme
-                                <input id="sexe" type="radio" value="h"'.(isset($utilisateur['sexe']) && $utilisateur['sexe'] == 'h' ? 'checked="checked"' : '').' 
-                                /> homme
-                            </span>
-
-                            <br/>
-
-                            Nom :
-                            <input id="nom"
-                            value="'.(isset($utilisateur['nom']) ? $utilisateur['nom'] : '').'"/>
-
-                            <br/>
-
-                            Prénom :
-                            <input id="prenom" type="text"
-                            value="'.(isset($utilisateur['prenom']) ? $utilisateur['prenom'] : '').'"/>
-
-                            <br/>
-                            
-                            Adresse Electronique :
-                            <input id="email" type="email"
-                            value="'.(isset($utilisateur['email']) ? $utilisateur['email'] : '').'"/>
-                            
-                            <br/>
-
-                            Date de naissance :
-                            <input id="ddn" type="date" value="'.(isset($utilisateur['ddn']) ? $utilisateur['ddn'] : '').'"/>
-
-                            <br/>
-
-                            Adresse Postale (numéro + rue) :
-                            <input id="postal" type="text"
-                            value="'.(isset($utilisateur['adresse']) ? $utilisateur['adresse'] : '').'"/>
-                            
-                            <br/>
-
-                            Code postal :
-                            <input id="zip" type="text" inputmode="numeric"
-                            value="'.(isset($utilisateur['cp']) ? $utilisateur['cp'] : '').'"/>
-                            
-                            <br/>
-
-                            Ville :
-                            <input id="ville" type="text"
-                            value="'.(isset($utilisateur['ville']) ? $utilisateur['ville'] : '').'"/>
-                            
-                            <br/>
-
-                            Téléphone :
-                            <input id="telephone" type="tel"
-                            value="'.(isset($utilisateur['noTel']) ? $utilisateur['noTel'] : '').'"/>';
-                }
-                ?>
-            
-            </fieldset>
-            <br/>
-            
-            </form>
-            <button id='valider'>Valider</button>
+                    ?>
+                
+                </fieldset>
+                <br/>
+                
+                </form>
+                <button class='valider'>Valider</button>
+            </div>
         </div>
 
         <div class="right">

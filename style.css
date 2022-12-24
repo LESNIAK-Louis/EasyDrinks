@@ -2,7 +2,7 @@ body {
 
     font-family: arial;
     text-decoration: none;
-    color: black;
+    color: #313A4A;
 }
 
 div.grid-container{
@@ -18,21 +18,45 @@ div.grid-container{
             /* HEADER */
 
 .header{
+    position: relative;
     grid-area: header;
+    background-image: url(img/header.png);
+    background-repeat:no-repeat;
+    background-size: 646px 130px;
+    background-position: center;
     text-align: center;
-    background-color: white;
-    border-bottom : 3px solid black;
-    margin-bottom:10px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    margin-bottom:20px;
+    height:160px;
+    cursor: pointer;
 }
 
 .titre{
     text-decoration: none;
-    color: black;
+    color: #313A4A;
 }
 
 .topRight{
+    position: absolute;
     float:right;
+    bottom: 0;
+    right: 0;
+    margin-right : 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
+
+.topRight > *{
+    flex: 1 1 40%;
+}
+
+.topRight > p{
+    padding:5px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    cursor:default;
+}
+
 
 .imageLogin{
     width: 50px;
@@ -43,22 +67,9 @@ div.grid-container{
 
 .menu{
     grid-area: menu;
-    background-color: #f1ebe3;
-    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), 8px 0 15px -4px rgba(0, 0, 0, 0.20);
+    background-color: #F1F2F2;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     z-index: 1;
-}
-
-#titreMenu {
-    
-    text-align: center;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
-    margin: -5px 15px 5px 15px;
-    background-color:white;
-    padding: 8px 0 8px 0;
-    color: black;
-    font-weight: bold;
-    border-top: 3px solid black;
-    font-size: 20px;
 }
 
 div.listeCategories{
@@ -66,21 +77,21 @@ div.listeCategories{
 
 div.categorie{
     background-color: white;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin: 20px 0 20px 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 20px -15px 0px 15px;
     padding-left: 10px;  
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     text-decoration: none;
-    color: black;
+    color: #313A4A;
     font-weight: bold;
     cursor: pointer;
-    border-left : 5px solid #6fc278;
+    border-left : 5px solid #22a6b3;
     border-bottom : 3px solid transparent;
 }
 
 div.categorie:hover{
-    border-bottom : 3px solid black;
+    border-bottom : 3px solid #313A4A;
 }
 
             /* MAIN */
@@ -100,16 +111,17 @@ div.containerRecettes{
 }
 
 div.boiteRecette{
+    background-color: rgb(255, 255, 255);
     cursor:pointer;
     width: 250px;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     text-align: center; 
     cursor: pointer;
     border-bottom: 3px solid transparent;
 }
 
 div.boiteRecette:hover{
-    border-bottom : 3px solid black;
+    border-bottom : 3px solid #313A4A;
 }
 
 .titreRecette{
@@ -151,26 +163,41 @@ div.contenuRecette > *{
 
 .titreDetailsRecette{
 
-    
+    text-align: center;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    margin: -5px 15px 5px 15px;
+    background-color:white;
+    padding: 8px 0 8px 0;
+    color: #313A4A;
+    font-weight: bold;
+    border-top: 3px solid #313A4A;
+    font-size: 20px;
 }
 
 .detailsRecette1{
 
-    border-right: 3px dashed gray;
+    border-right: 2px dashed gray;
 }
 
-.detailsRecette2{
+.detailsRecette2 > h2{
 
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    padding: 5px;
 }
 
 .detailsRecette3{
 
-    border-top: 3px dashed gray;
+    border-top: 2px dashed gray;
+}
+
+.detailsRecette3 > h2{
+
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    padding: 5px;
 }
 
 
 ul.navigation {
-    padding: 10px 16px;
     background-color: white;
     grid-area: menu;
     display: flex;
@@ -181,42 +208,37 @@ ul.navigation {
 ul.navigation li {
     display: inline;
     font-size: 16px;
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.25), 0 10px 10px 0 rgba(0, 0, 0, 0.20);
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     padding: 5px;
     border-top : 3px solid transparent;
     border-bottom : 3px solid transparent;
 }
 
 ul.navigation li:hover{
-    border-bottom : 3px solid black;
+    border-bottom : 3px solid #313A4A;
 }
 
 ul.navigation li > a {
     text-decoration: none;
-    color: black;
+    color: #313A4A;
     font-weight: bold;
+}
+
+.separateurResultat{
+
+    font-weight: bold;
+    margin-left: 40px;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    padding:5px;
 }
 
             /* RIGHT */
 
 .right{
     grid-area: right;
-    background-color: #f1ebe3;
-    box-shadow: 0 0 0px 0px rgba(0, 0, 0, 0.25), -8px 0 15px -4px rgba(0, 0, 0, 0.20);
+    background-color: #F1F2F2;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     z-index: 1;
-}
-
-#titreRight{
-    
-    text-align: center;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 20px 0 rgba(0, 0, 0, 0.20);
-    margin: -5px 15px 5px 15px;
-    background-color:white;
-    padding: 8px 0 8px 0;
-    color: black;
-    font-weight: bold;
-    border-top: 3px solid black;
-    font-size: 20px;
 }
 
 
@@ -242,7 +264,8 @@ div.listeIngredients > p{
 .ingredientItem{
 
     font-weight: bold;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.25), 0 5px 15px 0 rgba(0, 0, 0, 0.20);
+    background-color: white;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
     padding: 5px 10px 5px 10px;
     margin: 20px 0px 5px 15px;
 }
@@ -250,32 +273,53 @@ div.listeIngredients > p{
 button {
 
     background-color: white;
-    border : 2px solid black;
+    border : 2px solid #313A4A;
     min-width: 25px;
     min-height: 25px;
 }
 
 button:hover{
 
-    background-color: lightgray;
+    background-color: #95afc0;
     cursor: pointer;
+}
+
+#ajouterIngredient{
+
+    background-color: #6ab04c;
+    border : 0px;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+#ajouterPasIngredient{
+
+    background-color: #eb4d4b;
+    border : 0px;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
 }
 
 .retirerIngredient{
 
     position: relative;
+    border : 0px;
     top: 50%;
     float:left;
     background-color: white;
+    font-weight: bold;
 }
 
 .retirerIngredient:hover{
 
+    background-color: white;
     position: relative;
     top: 50%;
     float:left;
-    background-color: lightgray;
     cursor: pointer;
+    
 }
 
 form.rechercheTexte{
@@ -321,4 +365,71 @@ form.rechercheTexte{
 .footer{
     grid-area: footer;
     background-color: rgb(255, 5, 5);
+}
+
+.sousTitre{
+
+    text-align: center;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+    margin: -5px 15px 5px 15px;
+    background-color:white;
+    padding: 8px 0 8px 0;
+    color: #313A4A;
+    font-weight: bold;
+    border-top: 3px solid #313A4A;
+    font-size: 20px;
+}
+
+h1.sousTitre{
+
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+    /* FORMULAIRES */
+
+.parentFormulaire{
+
+    text-align: center;
+    margin-left: 15%;
+    margin-right: 30%;
+    font-weight: bold;
+}
+
+.parentFormulaire#infosCompte{
+
+    margin: 0;
+}
+
+.formulaire{
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.itemFormulaire > span{
+
+    position: relative;
+    float: center;
+}
+
+.itemFormulaire > #login{
+
+    position: relative;
+    float: right;
+}
+
+.itemFormulaire > .radio{
+
+    position: relative;
+    float: right;
+}
+
+.itemFormulaire > input{
+
+    position: relative;
+    float: right;
 }

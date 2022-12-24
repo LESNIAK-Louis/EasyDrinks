@@ -11,6 +11,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
     <script type="text/javascript">
 
+        function retourAccueil(){
+
+            $(location).prop('href', './index.php?#');
+        }
+
         function mettreAJourRecettes(){
             $.post("recettesSession.php", {}, function(data, status){
                 $('.containerRecettes').empty();
@@ -33,16 +38,16 @@
  </head>
  <body>
     <div class="grid-container">
-        <div class="header"> 
-                <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
-                <?php
-                if(isset($_SESSION['login'])){
-                    echo 'Connecté en tant que '.$_SESSION['login'];
-                }
-                ?> 
+        <div class="header" onClick="retourAccueil()"> 
+                
                 <div class="topRight">
                     <a href="panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
                     <a href=<?php echo (isset($_SESSION['login']) ? "./compte/compte.php" : "./compte/login.php"); ?> ><img src="img/login.png" alt="login" class="imageLogin"></a>
+                    <?php
+                        if(isset($_SESSION['login'])){
+                            echo '<p>Connecté en tant que <b>'.$_SESSION['login'].'</b></p>';
+                        }
+                    ?> 
                 </div>
                 
             </div>
@@ -54,10 +59,11 @@
 
 
         <div class="main">
-                <div class="containerRecettes">
-                    
-                </div>
-                <div class="contenuRecette"></div>
+            <h1 class="sousTitre">Mes recettes préférées</h1>
+            <div class="containerRecettes">
+                
+            </div>
+            <div class="contenuRecette"></div>
         </div>
 
         <div class="right">

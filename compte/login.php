@@ -19,6 +19,11 @@
         
         let mdp = '';
     
+        function retourAccueil(){
+
+            $(location).prop('href', '../index.php?#');
+        }
+
         function sendData() {
             $.post("loginValidation.php", 
             {
@@ -36,7 +41,7 @@
         }
 
         $(document).ready(function(){
-            $(document).on('click', '#valider', function(){
+            $(document).on('click', '.valider', function(){
                 sendData();
             });
 
@@ -50,8 +55,7 @@
  </head>
  <body>
     <div class="grid-container">
-        <div class="header"> 
-            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
+        <div class="header" onClick="retourAccueil()"> 
             
         </div>
 
@@ -62,30 +66,26 @@
 
 
         <div class="main">
-            <h1>S'identifier</h1>
+            <h1 class="sousTitre">S'identifier</h1>
 
-            <form id="formLogin" >
-                <fieldset>
-                <legend>Informations personnelles</legend>
+            <div class="parentFormulaire">
+                <form id="formLogin" class="formulaire">
 
-                Login : 
-                <input id="login" type="text" class="<?php echo $ClassLogin; ?>"
-                required="required" />
+                    <div class="itemFormulaire">
+                        <span>Login :</span>
+                        <input id="login" type="text" required="required" />
+                    </div>
 
-                <br/>
-
-                Mot de passe (8 caractères minimum) :
-                <input type="password" id="pass"
-                class="<?php echo $ClassMdp; ?>"
-                value=""
-                minlength="8" 
-                required="required" />
-
-            </fieldset>
-            <br/>
-            </form>
-            <button id='valider'>Valider</button>
-            <a href="register.php">S'enregistrer</a>
+                    
+                    <div class="itemFormulaire">
+                        <span>Mot de passe (8 caractères minimum) :</span>
+                        <input type="password" id="pass" minlength="8"  required="required" />
+                    </div>
+                </form>
+                <button class='valider'>Valider</button>
+                <p>Pas de compte ?</p>
+                <a href="register.php">S'enregistrer</a>
+            </div>
         </div>
 
         <div class="right">

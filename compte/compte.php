@@ -10,6 +10,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
     <script type="text/javascript">
 
+        function retourAccueil(){
+
+            $(location).prop('href', '../index.php?#');
+        }
+
         function modifierCompte(){
 
             $(location).prop('href', './modifierCompte.php');
@@ -32,14 +37,8 @@
  </head>
  <body>
     <div class="grid-container">
-        <div class="header"> 
-            <a href="../index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
-            <?php
-                if(isset($_SESSION['login'])){
-                    echo 'Connecté en tant que '.$_SESSION['login'];
-                }
-                ?> 
-            
+        <div class="header" onClick="retourAccueil()"> 
+
         </div>
 
 
@@ -49,7 +48,7 @@
 
 
         <div class="main">
-            <h1>Informations du compte</h1>
+            <h1 class="sousTitre">Informations du compte</h1>
 
             <?php
 
@@ -114,21 +113,24 @@
                     }
 
                     echo '
-                        <p>Login : <span id="login">'.$login.'</span></p>
-                        <p>Nom : '.$nom.'</p>
-                        <p>Prénom : '.$prenom.'</p>
-                        <p>Sexe : '.$sexe.'</p>
-                        <p>Date de naissance : '.$ddn.'</p>
-                        <p>Email : '.$email.'</p>
-                        <p>Adresse : '.$adresse.'</p>
-                        <p>Code postal : '.$cp.'</p>
-                        <p>Ville : '.$ville.'</p>
-                        <p>Téléphone : '.$noTel.'</p>
+                        <div class="parentFormulaire" id="infosCompte">
+                            <p>Login : <span id="login">'.$login.'</span></p>
+                            <p>Nom : '.$nom.'</p>
+                            <p>Prénom : '.$prenom.'</p>
+                            <p>Sexe : '.$sexe.'</p>
+                            <p>Date de naissance : '.$ddn.'</p>
+                            <p>Email : '.$email.'</p>
+                            <p>Adresse : '.$adresse.'</p>
+                            <p>Code postal : '.$cp.'</p>
+                            <p>Ville : '.$ville.'</p>
+                            <p>Téléphone : '.$noTel.'</p>
+                            <button onClick="modifierCompte()">Modifier</button>
+                            <button id="deconnexion">Se déconnecter</button>
+                        </div>
                     ';
                 }
             ?>
-            <button onClick="modifierCompte()">Modifier</button>
-            <button id="deconnexion">Se déconnecter</button>
+            
         </div>
 
         <div class="right">

@@ -108,15 +108,15 @@
     <div class="grid-container">
 
         <div class="header"> 
-            <a href="./index.php?#" class="titre"> <h1> Easy Drinks </h1> </a>
-            <?php
-            if(isset($_SESSION['login'])){
-                echo 'Connecté en tant que '.$_SESSION['login'];
-            }
-            ?> 
+            <a href="./index.php?#" class="titre"> </a>
             <div class="topRight">
                 <a href="panier.php"><img src="img/panier.png" alt="login" class="imageLogin"></a>
                 <a href=<?php echo (isset($_SESSION['login']) ? "./compte/compte.php" : "./compte/login.php"); ?> ><img src="img/login.png" alt="login" class="imageLogin"></a>
+                <?php
+                    if(isset($_SESSION['login'])){
+                        echo '<p>Connecté en tant que <b>'.$_SESSION['login'].'</b></p>';
+                    }
+                ?> 
             </div>
             
         </div>
@@ -124,7 +124,7 @@
 
         <div class="menu">
             
-            <div id="titreMenu">Catégories</div>
+            <div id="titreMenu" class="sousTitre">Ingrédients</div>
             <div class="listeCategories">
                 <div class="categorie">
                     <a class="boutonMenu" href="#">Aliment</a>
@@ -142,13 +142,13 @@
         </div>
 
         <div class="right">
-            <div id="titreRight">Recherche</div>
+            <div id="titreRight" class="sousTitre">Recherche</div>
             <form class="rechercheTexte" autocomplete="off">
                 <div class="autocomplete">
-                    <input type="text" id="champRecherche">
+                    <input type="text" id="champRecherche" placeholder="Ingrédient">
                 </div>
-                <button id="ajouterIngredient">+</button>
-                <button id="ajouterPasIngredient">-</button>
+                <button id="ajouterIngredient" title="Avec">+</button>
+                <button id="ajouterPasIngredient" title="Sans">x</button>
             </form>
             <div class="listeIngredients">
                 <p>Aucun ingrédient sélectionné</p>
